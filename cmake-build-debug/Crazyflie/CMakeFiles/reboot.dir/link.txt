@@ -1,0 +1,1 @@
+/usr/bin/c++  -g  -rdynamic CMakeFiles/reboot.dir/src/reboot.cpp.o  -o reboot  crazyflie_cpp/libcrazyflie_cpp.a -lboost_program_options -lusb-1.0 

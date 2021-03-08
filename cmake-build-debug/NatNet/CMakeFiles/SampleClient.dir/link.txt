@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=c++11 -pthread -g   CMakeFiles/SampleClient.dir/src/SampleClient.cpp.o  -o SampleClient   -L/home/griv/CLionProjects/crazyflie_NatNet/NatNet/lib  -Wl,-rpath,/home/griv/CLionProjects/crazyflie_NatNet/NatNet/lib:/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet libNatNetLibs.so -lNatNetLibShared 

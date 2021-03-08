@@ -1,0 +1,1428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Crazyflie_NatNet"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\ProjectWithCuda\;CMake Files\..\ProjectWithCuda\cmake-build-debug\;CMake Files\..\ProjectWithCuda\cmake-build-debug\eigen3-build\;CMake Files\Crazyflie\;CMake Files\Crazyflie\crazyflie_cpp\;CMake Files\NatNet\;CMake Files\Filter\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Trajectory_Planner">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/libTrajectory_Planner.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/ProjectWithCuda/cmake-build-debug/eigen3-src"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 Trajectory_Planner"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Trajectory_Planner/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/libTrajectory_Planner.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/ProjectWithCuda/cmake-build-debug/eigen3-src"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 Trajectory_Planner/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/local">
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/local"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="PB_Control">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/libPB_Control.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/ProjectWithCuda/cmake-build-debug/eigen3-src"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 PB_Control"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="PB_Control/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/libPB_Control.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/ProjectWithCuda/cmake-build-debug/eigen3-src"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 PB_Control/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Sensor">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/libSensor.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Filter/include"/>
+					<Add directory="/home/griv/CLionProjects/ProjectWithCuda/cmake-build-debug/eigen3-src"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 Sensor"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Sensor/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/libSensor.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Filter/include"/>
+					<Add directory="/home/griv/CLionProjects/ProjectWithCuda/cmake-build-debug/eigen3-src"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 Sensor/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="scrap">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/scrap" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Filter/include"/>
+					<Add directory="/home/griv/CLionProjects/ProjectWithCuda/cmake-build-debug/eigen3-src"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 scrap"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="scrap/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/scrap" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Filter/include"/>
+					<Add directory="/home/griv/CLionProjects/ProjectWithCuda/cmake-build-debug/eigen3-src"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 scrap/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Velocity_Filter">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/libVelocity_Filter.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Filter/include"/>
+					<Add directory="/home/griv/CLionProjects/ProjectWithCuda/cmake-build-debug/eigen3-src"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 Velocity_Filter"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Velocity_Filter/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/libVelocity_Filter.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Filter/include"/>
+					<Add directory="/home/griv/CLionProjects/ProjectWithCuda/cmake-build-debug/eigen3-src"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 Velocity_Filter/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/strip">
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/strip"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="list_install_components">
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 list_install_components"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install">
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 install"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="setParam">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/setParam" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 setParam"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="setParam/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/setParam" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 setParam/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="downloadUSDLogfile">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/downloadUSDLogfile" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 downloadUSDLogfile"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="downloadUSDLogfile/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/downloadUSDLogfile" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 downloadUSDLogfile/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="log">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/log" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 log"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="log/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/log" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 log/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="listLogVariables">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/listLogVariables" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 listLogVariables"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="listLogVariables/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/listLogVariables" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 listLogVariables/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="scan">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/scan" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 scan"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="scan/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/scan" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 scan/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="listParams">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/listParams" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 listParams"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="listParams/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/listParams" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 listParams/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="listMemories">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/listMemories" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 listMemories"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="listMemories/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/listMemories" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 listMemories/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="reboot">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/reboot" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 reboot"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="reboot/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/reboot" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 reboot/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="battery">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/battery" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 battery"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="battery/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/battery" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 battery/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="version">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/version" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 version"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="version/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/version" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 version/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="console">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/console" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 console"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="console/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/console" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 console/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="flash">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/flash" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 flash"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="flash/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/flash" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 flash/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="comCheck">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/comCheck" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 comCheck"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="comCheck/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/comCheck" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 comCheck/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="crazyflie_cpp">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/crazyflie_cpp/libcrazyflie_cpp.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/crazyflie_cpp"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include/crazyflie_cpp"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/crazyflie_cpp/Makefile&quot;  VERBOSE=1 crazyflie_cpp"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/crazyflie_cpp/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/crazyflie_cpp/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/crazyflie_cpp/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="crazyflie_cpp/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/crazyflie_cpp/libcrazyflie_cpp.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/crazyflie_cpp"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/include/crazyflie_cpp"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/crazyflie_cpp/Makefile&quot;  VERBOSE=1 crazyflie_cpp/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/crazyflie_cpp/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/crazyflie_cpp/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Crazyflie/crazyflie_cpp/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="NatNetLibs">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/libNatNetLibs.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/NatNet/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 NatNetLibs"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="NatNetLibs/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/libNatNetLibs.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/NatNet/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 NatNetLibs/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SampleClient">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/SampleClient" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/NatNet/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 SampleClient"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SampleClient/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/SampleClient" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/NatNet/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 SampleClient/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="NatNetUtility">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/libNatNetUtility.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/NatNet/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 NatNetUtility"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="NatNetUtility/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/libNatNetUtility.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/NatNet/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 NatNetUtility/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="util_example">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/util_example" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/NatNet/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 util_example"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="util_example/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/util_example" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/NatNet/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 util_example/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/NatNet/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FIR_Filter">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter/libFIR_Filter.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Filter/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter/Makefile&quot;  VERBOSE=1 FIR_Filter"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FIR_Filter/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter/libFIR_Filter.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Filter/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter/Makefile&quot;  VERBOSE=1 FIR_Filter/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Filter_test">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter/Filter_test" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Filter/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter/Makefile&quot;  VERBOSE=1 Filter_test"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Filter_test/fast">
+				<Option output="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter/Filter_test" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/griv/CLionProjects/crazyflie_NatNet/Filter/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter/Makefile&quot;  VERBOSE=1 Filter_test/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/src/Crazyflie.cpp">
+			<Option target="crazyflie_cpp"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/src/CrazyflieUSB.cpp">
+			<Option target="crazyflie_cpp"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/src/Crazyradio.cpp">
+			<Option target="crazyflie_cpp"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/src/ITransport.cpp">
+			<Option target="crazyflie_cpp"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/src/USBDevice.cpp">
+			<Option target="crazyflie_cpp"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/src/crtp.cpp">
+			<Option target="crazyflie_cpp"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/src/battery.cpp">
+			<Option target="battery"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/src/comCheck.cpp">
+			<Option target="comCheck"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/src/console.cpp">
+			<Option target="console"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/src/downloadUSDLogfile.cpp">
+			<Option target="downloadUSDLogfile"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/src/flash.cpp">
+			<Option target="flash"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/src/listLogVariables.cpp">
+			<Option target="listLogVariables"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/src/listMemories.cpp">
+			<Option target="listMemories"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/src/listParams.cpp">
+			<Option target="listParams"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/src/log.cpp">
+			<Option target="log"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/src/reboot.cpp">
+			<Option target="reboot"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/src/scan.cpp">
+			<Option target="scan"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/src/setParam.cpp">
+			<Option target="setParam"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/src/version.cpp">
+			<Option target="version"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Filter/include/fir_filter.h">
+			<Option target="FIR_Filter"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Filter/src/fir_filter.cpp">
+			<Option target="FIR_Filter"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Filter/test/Filter_test.cpp">
+			<Option target="Filter_test"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/NatNet/include/NatNetCAPI.h">
+			<Option target="NatNetLibs"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/NatNet/include/NatNetClient.h">
+			<Option target="NatNetLibs"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/NatNet/include/NatNetRepeater.h">
+			<Option target="NatNetLibs"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/NatNet/include/NatNetRequests.h">
+			<Option target="NatNetLibs"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/NatNet/include/NatNetTypes.h">
+			<Option target="NatNetLibs"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/NatNet/include/NatNetUtility.h">
+			<Option target="NatNetUtility"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/NatNet/src/NatNetUtility.cpp">
+			<Option target="NatNetUtility"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/NatNet/src/SampleClient.cpp">
+			<Option target="SampleClient"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/NatNet/src/util_example.cpp">
+			<Option target="util_example"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/src/PB_Control.h">
+			<Option target="PB_Control"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/src/Sensor.h">
+			<Option target="Sensor"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/src/Trajectory_Planner.h">
+			<Option target="Trajectory_Planner"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/src/Velocity_Filter.h">
+			<Option target="Velocity_Filter"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/src/scrap.cpp">
+			<Option target="scrap"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/../ProjectWithCuda/cmake-build-debug/eigen3-build/Eigen3Config.cmake">
+			<Option virtualFolder="CMake Files\..\ProjectWithCuda\cmake-build-debug\eigen3-build\"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/../ProjectWithCuda/cmake-build-debug/eigen3-build/Eigen3ConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\ProjectWithCuda\cmake-build-debug\eigen3-build\"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/../ProjectWithCuda/cmake-build-debug/eigen3-build/Eigen3Targets.cmake">
+			<Option virtualFolder="CMake Files\..\ProjectWithCuda\cmake-build-debug\eigen3-build\"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/CMake.cmake">
+			<Option virtualFolder="CMake Files\Crazyflie\"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Crazyflie\"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/CMake.cmake">
+			<Option virtualFolder="CMake Files\Crazyflie\crazyflie_cpp\"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Crazyflie/crazyflie_cpp/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Crazyflie\crazyflie_cpp\"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/NatNet/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\NatNet\"/>
+		</Unit>
+		<Unit filename="/home/griv/CLionProjects/crazyflie_NatNet/Filter/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Filter\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 2.8.3)
+project(crazyflie_cpp)
+
+if(DEFINED CATKIN_DEVEL_PREFIX)
+  message("Using ROS (catkin_make)")
+  include(ROS.cmake)
+else()
+  message("Using standard cmake")
+  include(CMake.cmake)
+endif()

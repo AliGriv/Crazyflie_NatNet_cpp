@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../Filter/include/fir_filter.h
+stdlib.h
+-
+cmath
+-
+string.h
+-
+string.h
+-
+vector
+-
+numeric
+-
+
+/home/griv/CLionProjects/crazyflie_NatNet/Filter/src/fir_filter.cpp
+fir_filter.h
+/home/griv/CLionProjects/crazyflie_NatNet/Filter/src/fir_filter.h
+iostream
+-
+

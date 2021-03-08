@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -g  -shared -Wl,-soname,libSensor.so -o libSensor.so   -Wl,-rpath,/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug:/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter libVelocity_Filter.so Filter/libFIR_Filter.so 

@@ -1,0 +1,1 @@
+/usr/bin/c++  -g  -rdynamic CMakeFiles/comCheck.dir/src/comCheck.cpp.o  -o comCheck  crazyflie_cpp/libcrazyflie_cpp.a -lboost_program_options -lusb-1.0 

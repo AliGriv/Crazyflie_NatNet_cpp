@@ -1,0 +1,1 @@
+/usr/bin/c++  -g  -rdynamic CMakeFiles/battery.dir/src/battery.cpp.o  -o battery  crazyflie_cpp/libcrazyflie_cpp.a -lboost_program_options -lusb-1.0 

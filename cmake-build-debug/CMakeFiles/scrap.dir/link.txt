@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/scrap.dir/src/scrap.cpp.o  -o scrap  -Wl,-rpath,/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug:/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter Crazyflie/crazyflie_cpp/libcrazyflie_cpp.a libVelocity_Filter.so libPB_Control.so /usr/lib/x86_64-linux-gnu/libusb-1.0.so Filter/libFIR_Filter.so 

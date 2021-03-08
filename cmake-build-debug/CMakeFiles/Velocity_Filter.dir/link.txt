@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -g  -shared -Wl,-soname,libVelocity_Filter.so -o libVelocity_Filter.so   -Wl,-rpath,/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter Filter/libFIR_Filter.so 
