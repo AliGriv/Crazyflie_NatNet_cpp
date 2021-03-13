@@ -23,7 +23,6 @@ struct Command {
         throttle = 0;
         yawRate = 0.0;
     }
-
 };
 
 

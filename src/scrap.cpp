@@ -11,6 +11,9 @@
 #include "Velocity_Filter.h"
 #include "Sensor.h"
 #include <Eigen/Dense>
+#include "CSVWriter.h"
+#include "Recorder.h"
+#include <cmath>
 
 std::vector <double> find_highLC(const Eigen::VectorXd &errors, const Eigen::VectorXd &gain) {
     double ux = gain(0) * errors(0) + gain(3) * errors(3);
@@ -20,6 +23,7 @@ std::vector <double> find_highLC(const Eigen::VectorXd &errors, const Eigen::Vec
 }
 
 int main() {
+    CSVWriter csv;
 
 //    std::string uri {"radio://0/80/2M"};
 //    Crazyflie cf(uri);
@@ -74,5 +78,23 @@ int main() {
     Eigen::Vector3d vec3d (1,2,3);
     std::cout << vec3d << std::endl;
 
+    int a = 'y' - 'x';
+    std::cout << "a is " << a << std::endl;
+    std::string aa = "aa"; aa += 'x';
+    std::cout << aa << " " << aa + 'x' << std::endl;
+    std::cout << aa + aa << std::endl;
+
+    Recorder rec(1);
+
+    for (int i = 0; i < 1000; i++) {
+        double t = i*0.01;
+        rec.appendTime(t,0);
+        Eigen::Vector3d p;
+        p << sin(M_PI/4*t)+1, cos(M_PI/3*t)+1, t;
+        rec.appendDesiredPosition(p,0);
+    }
+    rec.generatePlots();
+
+//    rec.saveDataToFile();
     return 0;
 }
