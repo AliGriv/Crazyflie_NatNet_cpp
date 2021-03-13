@@ -395,7 +395,12 @@ int main( int argc, char* argv[] )
                 if (iResult == ErrorCode_OK)
                     printf("[SampleClient] Disconnected");
                 break;
-			default:
+			default:if (g_pClient)
+	{
+		g_pClient->Disconnect();
+		delete g_pClient;
+		g_pClient = NULL;
+	}
 				break;
 		}
 		if(bExit)

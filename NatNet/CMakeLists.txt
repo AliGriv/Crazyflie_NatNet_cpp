@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.17)
 project(NatNet_Project)
-
+find_package (Eigen3 3.3 REQUIRED NO_MODULE)
 set(CMAKE_CXX_STANDARD 11)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread")
 
@@ -32,6 +32,10 @@ set_target_properties(NatNetUtility PROPERTIES LINKER_LANGUAGE CXX)
 #
 add_executable(util_example src/util_example.cpp)
 target_link_directories(util_example PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(util_example NatNetUtility NatNetLibs -lNatNetLibShared)
+target_link_libraries(util_example PUBLIC NatNetUtility NatNetLibs -lNatNetLibShared)
 
+add_executable(NatNet_test src/NatNet_test.cpp)
+target_link_directories(NatNet_test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(NatNet_test PUBLIC NatNetUtility NatNetLibs -lNatNetLibShared)
+target_link_libraries(NatNet_test PUBLIC Eigen3::Eigen)
 
