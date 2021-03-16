@@ -131,6 +131,23 @@ Crazyflie::Crazyflie(
 
 }
 
+bool Crazyflie::IsConnected() {
+    if (m_radio) {
+        try {
+            crtpNrf51SetSafelinkRequest request(ENABLE_SAFELINK);
+            sendPacketOrTimeout(request, /*useSafeLink*/false);
+            return true;
+        }
+        catch (std::runtime_error &e) {
+            std::cout << e.what() << std::endl;
+            return false;
+        }
+    }
+    else {
+        return false;
+    }
+}
+
 int Crazyflie::getProtocolVersion()
 {
   crtpGetProtocolVersionRequest req;

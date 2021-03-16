@@ -2,6 +2,7 @@
 
 #include <cstring>
 #include <sstream>
+#include <iostream>
 #include <functional>
 #include <math.h>
 
@@ -116,6 +117,7 @@ public:
     Logger& logger = EmptyLogger,
     std::function<void(const char*)> consoleCb = nullptr);
 
+  bool IsConnected();
   int getProtocolVersion();
 
   std::string getFirmwareVersion();
