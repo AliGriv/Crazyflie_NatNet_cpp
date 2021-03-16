@@ -14,7 +14,7 @@
 #include <stdexcept>
 #include <Eigen/Dense>
 #include "CSVWriter.h"
-
+#include "PB_Control.h"
 //gnuplot related
 #include "gnuplot_i.hpp" //Gnuplot class handles POSIX-Pipe-communikation with Gnuplot
 
@@ -26,24 +26,6 @@
 
 void wait_for_key ();
 
-struct Command {
-    double roll;
-    double pitch;
-    int throttle;
-    double yawRate;
-    Command() {
-        roll = 0.0;
-        pitch = 0.0;
-        throttle = 0;
-        yawRate = 0.0;
-    }
-    Command(double roll_val, double pitch_val, int throttle_val, double yawRate_val) {
-        roll = roll_val;
-        pitch = pitch_val;
-        throttle = throttle_val;
-        yawRate = yawRate_val;
-    }
-};
 
 class Recorder {
 public:
@@ -321,22 +303,144 @@ void Recorder::addVectorToCSV(CSVWriter &csv, const Eigen::Vector4d &v) {
 
 void Recorder::generatePlots() {
     try {
-//        std::vector <Gnuplot> DesiredPositionPlots (numCopters, Gnuplot());
-        Gnuplot DesiredPositionPlots;
+        Gnuplot DesiredPositionPlots("points");
         for (int n = 0; n < numCopters; n++) {
+
+            std::string title = "DesiredPosition";
+            title += '[' + std::to_string(n) + ']';
+            DesiredPositionPlots.savetops(title);
             std::vector <double> x,y,z;
+//            std::cout << DesiredPositions.at(n).size() << std::endl;
             for (int i = 0; i < DesiredPositions.at(n).size(); i++) {
                 x.push_back(DesiredPositions.at(n).at(i)(0));
                 y.push_back(DesiredPositions.at(n).at(i)(1));
                 z.push_back(DesiredPositions.at(n).at(i)(2));
             }
+
             DesiredPositionPlots.set_smooth().set_style("points").plot_xy(TimeCounter.at(n),x, "x").plot_xy(TimeCounter.at(n),y, "y").plot_xy(TimeCounter.at(n),z, "z");
-            std::string title = "DesiredPosition";
-            title += '[' + std::to_string(n) + ']';
+
+
             DesiredPositionPlots.set_title(title);
             DesiredPositionPlots.set_legend("outside right top");
+            DesiredPositionPlots.showonscreen();
+            DesiredPositionPlots.reset_plot();
+        }
 
-            wait_for_key();
+
+        Gnuplot PositionPlots("points");
+        for (int n = 0; n < numCopters; n++) {
+
+            std::string title = "Position";
+            title += '[' + std::to_string(n) + ']';
+            PositionPlots.savetops(title);
+            std::vector <double> x,y,z;
+//            std::cout << Positions.at(n).size() << std::endl;
+            for (int i = 0; i < Positions.at(n).size(); i++) {
+                x.push_back(Positions.at(n).at(i)(0));
+                y.push_back(Positions.at(n).at(i)(1));
+                z.push_back(Positions.at(n).at(i)(2));
+            }
+
+            PositionPlots.set_smooth().set_style("points").plot_xy(TimeCounter.at(n),x, "x").plot_xy(TimeCounter.at(n),y, "y").plot_xy(TimeCounter.at(n),z, "z");
+
+
+            PositionPlots.set_title(title);
+            PositionPlots.set_legend("outside right top");
+            PositionPlots.showonscreen();
+            PositionPlots.reset_plot();
+        }
+
+        Gnuplot PositionErrorPlots("points");
+        for (int n = 0; n < numCopters; n++) {
+
+            std::string title = "PositionError";
+            title += '[' + std::to_string(n) + ']';
+            PositionErrorPlots.savetops(title);
+            std::vector <double> x,y,z;
+//            std::cout << PositionErrors.at(n).size() << std::endl;
+            for (int i = 0; i < PositionErrors.at(n).size(); i++) {
+                x.push_back(PositionErrors.at(n).at(i)(0));
+                y.push_back(PositionErrors.at(n).at(i)(1));
+                z.push_back(PositionErrors.at(n).at(i)(2));
+            }
+
+            PositionErrorPlots.set_smooth().set_style("points").plot_xy(TimeCounter.at(n),x, "x").plot_xy(TimeCounter.at(n),y, "y").plot_xy(TimeCounter.at(n),z, "z");
+
+
+            PositionErrorPlots.set_title(title);
+            PositionErrorPlots.set_legend("outside right top");
+            PositionErrorPlots.showonscreen();
+            PositionErrorPlots.reset_plot();
+        }
+
+        Gnuplot VelocityPlots("points");
+        for (int n = 0; n < numCopters; n++) {
+
+            std::string title = "Velocity";
+            title += '[' + std::to_string(n) + ']';
+            VelocityPlots.savetops(title);
+            std::vector <double> x,y,z;
+//            std::cout << Velocities.at(n).size() << std::endl;
+            for (int i = 0; i < Velocities.at(n).size(); i++) {
+                x.push_back(Velocities.at(n).at(i)(0));
+                y.push_back(Velocities.at(n).at(i)(1));
+                z.push_back(Velocities.at(n).at(i)(2));
+            }
+
+            VelocityPlots.set_smooth().set_style("points").plot_xy(TimeCounter.at(n),x, "x").plot_xy(TimeCounter.at(n),y, "y").plot_xy(TimeCounter.at(n),z, "z");
+
+
+            VelocityPlots.set_title(title);
+            VelocityPlots.set_legend("outside right top");
+            VelocityPlots.showonscreen();
+            VelocityPlots.reset_plot();
+        }
+
+        Gnuplot CommandPlots("points");
+        for (int n = 0; n < numCopters; n++) {
+
+            std::string title = "Commands";
+            title += '[' + std::to_string(n) + ']';
+            CommandPlots.savetops(title);
+            std::vector <double> roll,pitch,throttle,yawRate;
+//            std::cout << Velocities.at(n).size() << std::endl;
+            for (int i = 0; i < Commands.at(n).size(); i++) {
+                roll.push_back(Commands.at(n).at(i).roll);
+                pitch.push_back(Commands.at(n).at(i).pitch);
+                throttle.push_back(Commands.at(n).at(i).throttle);
+                yawRate.push_back(Commands.at(n).at(i).yawRate);
+            }
+
+            CommandPlots.set_smooth().set_style("points").plot_xy(TimeCounter.at(n),roll, "roll").plot_xy(TimeCounter.at(n),pitch, "pitch").plot_xy(TimeCounter.at(n),yawRate, "yawRate").plot_xy(TimeCounter.at(n),throttle, "throttle");
+
+
+            CommandPlots.set_title(title);
+            CommandPlots.set_legend("outside right top");
+            CommandPlots.showonscreen();
+            CommandPlots.reset_plot();
+        }
+
+        Gnuplot HighLevelCommandPlots("points");
+        for (int n = 0; n < numCopters; n++) {
+
+            std::string title = "Velocity";
+            title += '[' + std::to_string(n) + ']';
+            HighLevelCommandPlots.savetops(title);
+            std::vector <double> x,y,z;
+//            std::cout << HighLevelCommands.at(n).size() << std::endl;
+            for (int i = 0; i < HighLevelCommands.at(n).size(); i++) {
+                x.push_back(HighLevelCommands.at(n).at(i)(0));
+                y.push_back(HighLevelCommands.at(n).at(i)(1));
+                z.push_back(HighLevelCommands.at(n).at(i)(2));
+            }
+
+            HighLevelCommandPlots.set_smooth().set_style("points").plot_xy(TimeCounter.at(n),x, "x").plot_xy(TimeCounter.at(n),y, "y").plot_xy(TimeCounter.at(n),z, "z");
+
+
+            HighLevelCommandPlots.set_title(title);
+            HighLevelCommandPlots.set_legend("outside right top");
+            HighLevelCommandPlots.showonscreen();
+            HighLevelCommandPlots.reset_plot();
         }
     }
     catch (GnuplotException ge)

@@ -12,6 +12,7 @@
 #include <math.h>
 
 
+
 struct Command {
     double roll;
     double pitch;
@@ -22,6 +23,12 @@ struct Command {
         pitch = 0.0;
         throttle = 0;
         yawRate = 0.0;
+    }
+    Command(double roll_val, double pitch_val, int throttle_val, double yawRate_val) {
+        roll = roll_val;
+        pitch = pitch_val;
+        throttle = throttle_val;
+        yawRate = yawRate_val;
     }
 };
 

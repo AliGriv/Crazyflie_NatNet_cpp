@@ -7,7 +7,7 @@ add_subdirectory(Filter)
 add_subdirectory(GNUPlot)
 add_subdirectory(CSVWriter)
 set(CMAKE_CXX_STANDARD 11)
-
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread")
 add_library(Velocity_Filter SHARED src/Velocity_Filter.h)
 set_target_properties(Velocity_Filter PROPERTIES LINKER_LANGUAGE CXX)
 target_include_directories(Velocity_Filter PUBLIC Filter/include)
@@ -33,7 +33,7 @@ add_library(Recorder SHARED src/Recorder.h)
 set_target_properties(Recorder PROPERTIES LINKER_LANGUAGE CXX)
 target_include_directories(Recorder PUBLIC CSVWriter/include)
 target_include_directories(Recorder PUBLIC GNUPlot)
-target_link_libraries(Recorder PUBLIC Eigen3::Eigen CSVWriter GNU_Plot)
+target_link_libraries(Recorder PUBLIC Eigen3::Eigen CSVWriter GNU_Plot PB_Control)
 
 
 
@@ -42,3 +42,9 @@ target_link_libraries(scrap PRIVATE crazyflie_cpp)
 target_include_directories(scrap PRIVATE Crazyflie/crazyflie_cpp/include)
 target_link_libraries(scrap PUBLIC Eigen3::Eigen Velocity_Filter PB_Control CSVWriter Recorder)
 target_include_directories(scrap PUBLIC CSVWriter/include)
+
+add_executable(Main src/Main.cpp)
+target_link_libraries(Main PUBLIC crazyflie_cpp Eigen3::Eigen Sensor Velocity_Filter PB_Control Recorder Trajectory_Planner)
+target_include_directories(Main PUBLIC Crazyflie/crazyflie_cpp/include)
+target_link_directories(Main PUBLIC NatNet)
+target_link_libraries(Main PUBLIC NatNetUtility NatNetLibs -lNatNetLibShared)
