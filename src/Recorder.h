@@ -43,6 +43,7 @@ public:
             HighLevelCommands.push_back({});
             TrackingFlags.push_back({});
             TimeCounter.push_back({});
+            Yaws.push_back({});
         }
         // Any new variable must be added to function createVariableNames (and also printVariableNames)
         createVariableNames(num_copters);
@@ -57,6 +58,7 @@ public:
     void appendHighLevelCommand(const Eigen::Vector3d &c, const int &copter_index);
     void appendTrackingFlag(const bool t, const int &copter_index);
     void appendTime(const double t, const int &copter_index);
+    void appendYaw(const double &y, const int &copter_index);
     void saveDataToFile();
     void createVariableNames(const int num_copters);
     void addVariablesToCSV(CSVWriter &csv);
@@ -77,7 +79,7 @@ private:
     std::vector <std::vector <Eigen::Vector3d>> HighLevelCommands;
     std::vector <std::vector <bool>> TrackingFlags;
     std::vector <std::vector<double>> TimeCounter;
-
+    std::vector <std::vector<double>> Yaws;
 };
 
 
@@ -159,7 +161,14 @@ void Recorder::appendTime(const double t, const int &copter_index) {
         std::cerr << "copter_index in appendTime is out of range" <<std::endl;
     }
 }
-
+void Recorder::appendYaw(const double &y, const int &copter_index) {
+    if (copter_index >= 0 && copter_index < numCopters) {
+        Yaws.at(copter_index).push_back(y);
+    }
+    else {
+        std::cerr << "copter_index in appendYaw is out of range" <<std::endl;
+    }
+}
 
 
 void Recorder::createVariableNames(const int num_copters) {
@@ -231,6 +240,12 @@ void Recorder::createVariableNames(const int num_copters) {
         name += '[' + id + ']';
         VariableNames.push_back(name);
     }
+    for (int i=0; i< num_copters; i++) {
+        std::string name = "Yaw";
+        std::string id = std::to_string(i);
+        name += '[' + id + ']';
+        VariableNames.push_back(name);
+    }
 }
 
 void Recorder::printVariableNames() {
@@ -249,7 +264,7 @@ void Recorder::saveDataToFile() {
     }
     addVariablesToCSV(csv);
     csv.writeToFile(fileName);
-    std::cout << "CSV file created" << std::endl;
+    std::cout << "CSV file created and variables added" << std::endl;
 }
 
 void Recorder::addVariablesToCSV(CSVWriter &csv) {
@@ -281,6 +296,9 @@ void Recorder::addVariablesToCSV(CSVWriter &csv) {
             }
             for (int n = 0; n < numCopters; n++) {
                 csv << TimeCounter.at(n).at(i);
+            }
+            for (int n = 0; n < numCopters; n++) {
+                csv << Yaws.at(n).at(i);
             }
         }
     }

@@ -30,6 +30,7 @@ double expTime;
 std::mutex m;
 std::mutex m_in_main;
 std::vector <Crazyflie> cfs;
+bool EmergencyStopExperiment = false;
 bool stopExperiment = false;
 //NatNet Variables
 static const ConnectionType kDefaultConnectionType = ConnectionType_Multicast;
@@ -50,7 +51,7 @@ void signal_callback_handler(int signum) {
     std::cout << "This will stop the program" << std::endl;
     // Terminate program
 //    exit(signum);
-    stopExperiment = true;
+    EmergencyStopExperiment = true;
 }
 void mainThread_run(Sensor &sensor,
                     Trajectory_Planner &trajPlanner,
@@ -63,7 +64,7 @@ void mainThread_run(Sensor &sensor,
     std::chrono::steady_clock::time_point expInitTime;
     std::chrono::steady_clock::time_point time_temp;
 
-    if (!stopExperiment) { //proceed with natural main code
+    if (!EmergencyStopExperiment) { //proceed with natural main code
         if (trajPlanner.ARM_FLAG && !trajPlanner.FAILSAFE_FLAG && !sensor.FAILSAFE_FLAG) {
             if (!IsNatNetReceiverInCall) {
                 //I hope this helps, as a sort of event handling procedure
@@ -90,14 +91,59 @@ void mainThread_run(Sensor &sensor,
                     m_in_main.lock();
                     commandsToGo = controller.mappedCommands;
                     m_in_main.unlock();
+                    for (int i = 0; i < numRigidBodies; i++) {
+                        Eigen::Vector3d Offset (trajPlanner.xOffsets.at(i),trajPlanner.yOffsets.at(i),0.0);
+                        rec.appendDesiredPosition(trajPlanner.desiredPose + Offset, i);
 
+                        rec.appendHighLevelCommand(controller.fXYZ.at(i), i);
+                        rec.appendPositionError(trajPlanner.errors.at((i)), i);
+                        rec.appendPosition(sensor.Position.at(i),i );
+                        rec.appendVelocity(sensor.Velocity.at(i), i);
+                        rec.appendYaw(sensor.yawFiltered.at(i), i);
+                        rec.appendCommand(controller.mappedCommands.at(i), i);
+                        rec.appendTrackingFlag(trackingFlags_cache.at(i), i);
+                        rec.appendTime(expTime, i);
+                    }
 
                 }
             }
         }
+        else {
+            // Case1: Experiment is completed
+            if (!trajPlanner.ARM_FLAG && !trajPlanner.FAILSAFE_FLAG && !sensor.FAILSAFE_FLAG) {
+                std::cout << "Experiment Completed successfully" << std::endl;
+            }
+            // Case2: Failsafe triggered
+            else if (sensor.FAILSAFE_FLAG) {
+                std::cout << "Failsafe, root cause: camera system lost track of at least one copter" << std::endl;
+            }
+            else {
+                std::cout << "trajPlanner.ARM_FLAG is " << trajPlanner.ARM_FLAG << std::endl;
+                std::cout << "trajPlanner.FAILSAFE_FLAG is " << trajPlanner.FAILSAFE_FLAG << std::endl;
+                std::cout << "sensor.FAILSAFE_FLAG" << sensor.FAILSAFE_FLAG << std::endl;
+                std::cout << "Failsafe, root cause: large deviation from the virtual points" << std::endl;
+            }
+            stopExperiment = true;
+            for (int i = 0; i < numRigidBodies; i++ ){
+                commandsToGo.at(i).roll = 0.0;
+                commandsToGo.at(i).pitch = 0.0;
+                commandsToGo.at(i).throttle = 0;
+                commandsToGo.at(i).yawRate = 0.0;
+            }
+            rec.saveDataToFile();
+            rec.printVariableNames();
+            rec.generatePlots();
+        }
+        loop_counter++;
+        if (loop_counter%1000 == 0) {
+            time_temp = std::chrono::steady_clock::now();
+            std::chrono::steady_clock::duration time_span = time_temp - expInitTime;
+            std::cout << "Average loop rate (main thread) is " << loop_counter/(time_span.count()) << "Hz" << std::endl;
+        }
     }
     else {
         std::cout << "Main thread is closing due to keyboard interrupt" << std::endl;
+        rec.saveDataToFile();
         return;
     }
 
@@ -109,7 +155,7 @@ void comThread_run(){
     int rate = 100;
     int loop_counter = 0;
 
-    while (!stopExperiment) {
+    while (!EmergencyStopExperiment && !stopExperiment) {
         for (int i = 0; i < numRigidBodies; i++) {
             cfs.at(i).sendSetpoint(commandsToGo.at(i).roll, commandsToGo.at(i).pitch,
                                    commandsToGo.at(i).yawRate, commandsToGo.at(i).throttle);
