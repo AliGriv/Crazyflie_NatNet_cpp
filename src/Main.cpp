@@ -64,89 +64,93 @@ void mainThread_run(Sensor &sensor,
     std::chrono::steady_clock::time_point expInitTime;
     std::chrono::steady_clock::time_point time_temp;
 
-    if (!EmergencyStopExperiment) { //proceed with natural main code
-        if (trajPlanner.ARM_FLAG && !trajPlanner.FAILSAFE_FLAG && !sensor.FAILSAFE_FLAG) {
-            if (!IsNatNetReceiverInCall) {
-                //I hope this helps, as a sort of event handling procedure
-                position_cache = positions;
-                orientation_cache = orientations;
-                trackingFlags_cache = trackingFlags;
-                if (!sensor.initFlag) {
-                    sensor.process(position_cache, orientation_cache, trackingFlags_cache);
-                    //precious_positions = position;
-                    expInitTime = std::chrono::steady_clock::now();
+    while (true) {
+        if (!EmergencyStopExperiment) { //proceed with natural main code
+            if (trajPlanner.ARM_FLAG && !trajPlanner.FAILSAFE_FLAG && !sensor.FAILSAFE_FLAG) {
+                if (!IsNatNetReceiverInCall) {
+                    //I hope this helps, as a sort of event handling procedure
+                    position_cache = positions;
+                    orientation_cache = orientations;
+                    trackingFlags_cache = trackingFlags;
+                    if (!sensor.initFlag) {
+                        sensor.process(position_cache, orientation_cache, trackingFlags_cache);
+                        //precious_positions = position;
+                        expInitTime = std::chrono::steady_clock::now();
+                    }
+                    else {
+                        time_temp = std::chrono::steady_clock::now();
+                        std::chrono::steady_clock::duration time_span = time_temp - expInitTime;
+                        expTime = time_span.count();
+                        sensor.process(position_cache, orientation_cache, trackingFlags_cache);
+                        //positions_previous = positions
+                        trajPlanner.generate(expTime, sensor.Position, sensor.Velocity);
+                        controller.control_allocation(expTime, sensor.yawFiltered,
+                                                      trajPlanner.errors, trajPlanner.phase,
+                                                      trajPlanner.rampUpDuration,
+                                                      trajPlanner.rampDownDuration);
+
+                        m_in_main.lock();
+                        commandsToGo = controller.mappedCommands;
+                        m_in_main.unlock();
+                        for (int i = 0; i < numRigidBodies; i++) {
+                            Eigen::Vector3d Offset(trajPlanner.xOffsets.at(i), trajPlanner.yOffsets.at(i), 0.0);
+                            rec.appendDesiredPosition(trajPlanner.desiredPose + Offset, i);
+
+                            rec.appendHighLevelCommand(controller.fXYZ.at(i), i);
+                            rec.appendPositionError(trajPlanner.errors.at((i)), i);
+                            rec.appendPosition(sensor.Position.at(i), i);
+                            rec.appendVelocity(sensor.Velocity.at(i), i);
+                            rec.appendYaw(sensor.yawFiltered.at(i), i);
+                            rec.appendCommand(controller.mappedCommands.at(i), i);
+                            rec.appendTrackingFlag(trackingFlags_cache.at(i), i);
+                            rec.appendTime(expTime, i);
+                        }
+
+                    }
                 }
                 else {
-                    time_temp = std::chrono::steady_clock::now();
-                    std::chrono::steady_clock::duration time_span = time_temp - expInitTime;
-                    expTime = time_span.count();
-                    sensor.process(position_cache, orientation_cache, trackingFlags_cache);
-                    //positions_previous = positions
-                    trajPlanner.generate(expTime, sensor.Position, sensor.Velocity);
-                    controller.control_allocation(expTime, sensor.yawFiltered,
-                                                  trajPlanner.errors, trajPlanner.phase,
-                                                  trajPlanner.rampUpDuration,
-                                                  trajPlanner.rampDownDuration);
-
-                    m_in_main.lock();
-                    commandsToGo = controller.mappedCommands;
-                    m_in_main.unlock();
-                    for (int i = 0; i < numRigidBodies; i++) {
-                        Eigen::Vector3d Offset (trajPlanner.xOffsets.at(i),trajPlanner.yOffsets.at(i),0.0);
-                        rec.appendDesiredPosition(trajPlanner.desiredPose + Offset, i);
-
-                        rec.appendHighLevelCommand(controller.fXYZ.at(i), i);
-                        rec.appendPositionError(trajPlanner.errors.at((i)), i);
-                        rec.appendPosition(sensor.Position.at(i),i );
-                        rec.appendVelocity(sensor.Velocity.at(i), i);
-                        rec.appendYaw(sensor.yawFiltered.at(i), i);
-                        rec.appendCommand(controller.mappedCommands.at(i), i);
-                        rec.appendTrackingFlag(trackingFlags_cache.at(i), i);
-                        rec.appendTime(expTime, i);
-                    }
-
+                    continue; // go for another round of loop
                 }
+            } else {
+                // Case1: Experiment is completed
+                if (!trajPlanner.ARM_FLAG && !trajPlanner.FAILSAFE_FLAG && !sensor.FAILSAFE_FLAG) {
+                    std::cout << "Experiment Completed successfully" << std::endl;
+                }
+                    // Case2: Failsafe triggered
+                else if (sensor.FAILSAFE_FLAG) {
+                    std::cout << "Failsafe, root cause: camera system lost track of at least one copter" << std::endl;
+                } else {
+                    std::cout << "trajPlanner.ARM_FLAG is " << trajPlanner.ARM_FLAG << std::endl;
+                    std::cout << "trajPlanner.FAILSAFE_FLAG is " << trajPlanner.FAILSAFE_FLAG << std::endl;
+                    std::cout << "sensor.FAILSAFE_FLAG" << sensor.FAILSAFE_FLAG << std::endl;
+                    std::cout << "Failsafe, root cause: large deviation from the virtual points" << std::endl;
+                }
+                stopExperiment = true;
+                for (int i = 0; i < numRigidBodies; i++) {
+                    commandsToGo.at(i).roll = 0.0;
+                    commandsToGo.at(i).pitch = 0.0;
+                    commandsToGo.at(i).throttle = 0;
+                    commandsToGo.at(i).yawRate = 0.0;
+                }
+                rec.saveDataToFile();
+                rec.printVariableNames();
+                rec.generatePlots();
+                break;
+            }
+            loop_counter++;
+            if (loop_counter % 1000 == 0) {
+                time_temp = std::chrono::steady_clock::now();
+                std::chrono::steady_clock::duration time_span = time_temp - expInitTime;
+                std::cout << "Average loop rate (main thread) is " << loop_counter / (time_span.count()) << "Hz"
+                          << std::endl;
             }
         }
         else {
-            // Case1: Experiment is completed
-            if (!trajPlanner.ARM_FLAG && !trajPlanner.FAILSAFE_FLAG && !sensor.FAILSAFE_FLAG) {
-                std::cout << "Experiment Completed successfully" << std::endl;
-            }
-            // Case2: Failsafe triggered
-            else if (sensor.FAILSAFE_FLAG) {
-                std::cout << "Failsafe, root cause: camera system lost track of at least one copter" << std::endl;
-            }
-            else {
-                std::cout << "trajPlanner.ARM_FLAG is " << trajPlanner.ARM_FLAG << std::endl;
-                std::cout << "trajPlanner.FAILSAFE_FLAG is " << trajPlanner.FAILSAFE_FLAG << std::endl;
-                std::cout << "sensor.FAILSAFE_FLAG" << sensor.FAILSAFE_FLAG << std::endl;
-                std::cout << "Failsafe, root cause: large deviation from the virtual points" << std::endl;
-            }
-            stopExperiment = true;
-            for (int i = 0; i < numRigidBodies; i++ ){
-                commandsToGo.at(i).roll = 0.0;
-                commandsToGo.at(i).pitch = 0.0;
-                commandsToGo.at(i).throttle = 0;
-                commandsToGo.at(i).yawRate = 0.0;
-            }
+            std::cout << "Main thread is closing due to keyboard interrupt" << std::endl;
             rec.saveDataToFile();
-            rec.printVariableNames();
-            rec.generatePlots();
-        }
-        loop_counter++;
-        if (loop_counter%1000 == 0) {
-            time_temp = std::chrono::steady_clock::now();
-            std::chrono::steady_clock::duration time_span = time_temp - expInitTime;
-            std::cout << "Average loop rate (main thread) is " << loop_counter/(time_span.count()) << "Hz" << std::endl;
+            break;
         }
     }
-    else {
-        std::cout << "Main thread is closing due to keyboard interrupt" << std::endl;
-        rec.saveDataToFile();
-        return;
-    }
-
 
     return;
 }
@@ -176,12 +180,13 @@ void comThread_run(){
 int main() {
 
     std::vector <std::string> uri_list;
-    uri_list.emplace_back("radio://0/80/2M/E7E7E7E7E3");
+//    uri_list.emplace_back("radio://0/80/2M/E7E7E7E7E3");
     uri_list.emplace_back("radio://0/80/2M/E7E7E7E7E6");
 
     int numCopters = uri_list.size();
     int numRigidBodies = numCopters;
 
+    std::cout << "Initializing Crazyflies ---> Rebooting and Sending Zero Commands" << std::endl;
     for (int i = 0; i < numCopters; i++) {
         Crazyflie temp_cf(uri_list.at(i));
         cfs.push_back(temp_cf);
@@ -189,6 +194,8 @@ int main() {
         // Let's prepare the for the flight
         cfs.at(i).sendSetpoint(0.0,0.0,0.0,0);
     }
+
+    std::this_thread::sleep_for(std::chrono::seconds(3));
 
 
     //initializing global variables
@@ -199,6 +206,7 @@ int main() {
         commandsToGo.emplace_back(0.0,0.0,0,0.0);
     }
     expTime = 0.0;
+    std::cout << "Global Variables Initialized" << std::endl;
 
     //Objects to be passed to mainThread
     Sensor sensor(numCopters);
@@ -244,6 +252,10 @@ int main() {
 
     std::cout << "Listening to Motive has been started" << std::endl;
 
+    std::cout << "Use Ctrl-C to stop the program" << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds (1));
+
+    signal(SIGINT, signal_callback_handler); //This will help us to close the program controllably (with ctrl+c)
 
     std::thread comThread(comThread_run);
     std::thread mainThread(mainThread_run,
@@ -253,9 +265,10 @@ int main() {
                            std::ref(rec));
 
 
+
     comThread.join();
     mainThread.join();
-    signal(SIGINT, signal_callback_handler); //This will help us to close the program controllably (with ctrl+c)
+
 
     std::cout << "okay let's disconnect" << std::endl;
     if (g_pClient)

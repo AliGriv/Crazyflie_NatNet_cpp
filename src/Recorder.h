@@ -47,7 +47,7 @@ public:
         }
         // Any new variable must be added to function createVariableNames (and also printVariableNames)
         createVariableNames(num_copters);
-        printVariableNames();
+//        printVariableNames();
     }
     void appendDesiredPosition(const Eigen::Vector3d &p, const int &copter_index);
     void appendPosition(const Eigen::Vector3d &p, const int &copter_index);
@@ -173,7 +173,7 @@ void Recorder::appendYaw(const double &y, const int &copter_index) {
 
 void Recorder::createVariableNames(const int num_copters) {
     for (int i=0; i < num_copters; i++) {
-        std::string name = "DesredPosition";
+        std::string name = "DesiredPosition";
         std::string id = std::to_string(i);
         name += '[' + id + ']';
         for (auto c: {'x','y','z'}) {
@@ -460,6 +460,39 @@ void Recorder::generatePlots() {
             HighLevelCommandPlots.showonscreen();
             HighLevelCommandPlots.reset_plot();
         }
+
+        Gnuplot YawPlots("points");
+        for (int n = 0; n < numCopters; n++) {
+
+            std::string title = "Yaw";
+            title += '[' + std::to_string(n) + ']';
+            YawPlots.savetops(title);
+//            std::cout << HighLevelCommands.at(n).size() << std::endl;
+            YawPlots.set_smooth().set_style("points").plot_xy(TimeCounter.at(n),Yaws.at(n), "yaw");
+
+
+            YawPlots.set_title(title);
+            YawPlots.set_legend("outside right top");
+            YawPlots.showonscreen();
+            YawPlots.reset_plot();
+        }
+
+        Gnuplot TrackingFlagPlots("points");
+        for (int n = 0; n < numCopters; n++) {
+
+            std::string title = "Yaw";
+            title += '[' + std::to_string(n) + ']';
+            YawPlots.savetops(title);
+//            std::cout << TrackingFlags.at(n).size() << std::endl;
+            TrackingFlagPlots.set_smooth().set_style("points").plot_xy(TimeCounter.at(n),TrackingFlags.at(n), "yaw");
+
+
+            TrackingFlagPlots.set_title(title);
+            TrackingFlagPlots.set_legend("outside right top");
+            TrackingFlagPlots.showonscreen();
+            TrackingFlagPlots.reset_plot();
+        }
+
     }
     catch (GnuplotException ge)
     {
