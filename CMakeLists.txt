@@ -35,8 +35,8 @@ target_include_directories(Recorder PUBLIC CSVWriter/include)
 target_include_directories(Recorder PUBLIC GNUPlot)
 target_link_libraries(Recorder PUBLIC Eigen3::Eigen CSVWriter GNU_Plot PB_Control)
 
-
-
+#install(FILES src/generatingPlotsFromCSV.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+configure_file(src/generatingPlotsFromCSV.py ${CMAKE_CURRENT_BINARY_DIR}/generatingPlotsFromCSV.py COPYONLY)
 add_executable(scrap src/scrap.cpp)
 target_link_libraries(scrap PRIVATE crazyflie_cpp)
 target_include_directories(scrap PRIVATE Crazyflie/crazyflie_cpp/include)
@@ -48,3 +48,4 @@ target_link_libraries(Main PUBLIC crazyflie_cpp Eigen3::Eigen Sensor Velocity_Fi
 target_include_directories(Main PUBLIC Crazyflie/crazyflie_cpp/include)
 target_link_directories(Main PUBLIC NatNet)
 target_link_libraries(Main PUBLIC NatNetUtility NatNetLibs -lNatNetLibShared)
+
