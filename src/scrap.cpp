@@ -35,17 +35,17 @@ void signal_callback_handler(int signum) {
 
 int main() {
 //    CSVWriter csv;
-    auto t0 = std::chrono::high_resolution_clock::now();
-    signal(SIGINT, signal_callback_handler);
-    while(!stop){
-        std::cout << "Program processing..." << std::endl;
-        auto t = std::chrono::high_resolution_clock::now();
-        auto duration = std::chrono::duration_cast<std::chrono::duration<double>>(t-t0);
-        double dd = duration.count();
-        std::cout << dd << std::endl;
-        sleep(1);
-    }
-    return EXIT_SUCCESS;
+//    auto t0 = std::chrono::high_resolution_clock::now();
+//    signal(SIGINT, signal_callback_handler);
+//    while(!stop){
+//        std::cout << "Program processing..." << std::endl;
+//        auto t = std::chrono::high_resolution_clock::now();
+//        auto duration = std::chrono::duration_cast<std::chrono::duration<double>>(t-t0);
+//        double dd = duration.count();
+//        std::cout << dd << std::endl;
+//        sleep(1);
+//    }
+//    return EXIT_SUCCESS;
 
 
 
@@ -116,8 +116,8 @@ int main() {
 //    std::cout << aa << " " << aa + 'x' << std::endl;
 //    std::cout << aa + aa << std::endl;
 //
-//    Recorder rec(3);
-//
+    Recorder rec(3);
+
 //    for (int n=0; n < 3; n++){
 //        for (int i = 0; i < 1000; i++) {
 //            double t = i * 0.01;
@@ -130,5 +130,6 @@ int main() {
 //    rec.generatePlots();
 
 //    rec.saveDataToFile();
+    rec.printVariableNames();
     return 0;
 }
