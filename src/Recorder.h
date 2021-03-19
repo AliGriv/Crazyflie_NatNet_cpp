@@ -51,7 +51,7 @@ public:
     }
     void appendDesiredPosition(const Eigen::Vector3d &p, const int &copter_index);
     void appendPosition(const Eigen::Vector3d &p, const int &copter_index);
-    void appendPositionError(const Eigen::Vector3d &p, const int &copter_index);
+    void appendPositionError(const Eigen::VectorXd &p, const int &copter_index);
     void appendVelocity(const Eigen::Vector3d &v, const int &copter_index);
     void appendOrientation(const Eigen::Vector4d &o, const int &copter_index);
     void appendCommand(const Command &c, const int &copter_index);
@@ -102,9 +102,9 @@ void Recorder::appendPosition(const Eigen::Vector3d &p, const int &copter_index)
     }
 }
 
-void Recorder::appendPositionError(const Eigen::Vector3d &p, const int &copter_index) {
+void Recorder::appendPositionError(const Eigen::VectorXd &p, const int &copter_index) {
     if (copter_index >= 0 && copter_index < numCopters) {
-        PositionErrors.at(copter_index).push_back(p);
+        PositionErrors.at(copter_index).push_back(p.head(3));
     }
     else {
         std::cerr << "copter_index in appendPositionError is out of range" <<std::endl;
@@ -268,12 +268,25 @@ void Recorder::saveDataToFile() {
 }
 
 void Recorder::addVariablesToCSV(CSVWriter &csv) {
+    std::cout << "DesiredPositions.at(0).size()" << DesiredPositions.at(0).size() << std::endl;
+    std::cout << "Positions.at(0).size()" << Positions.at(0).size() << std::endl;
+    std::cout << "Velocities.at(0).size()" << Velocities.at(0).size() << std::endl;
+    std::cout << "Orientations.at(0).size()" << Orientations.at(0).size() << std::endl;
+    std::cout << "Commands.at(0).size()" << Commands.at(0).size() << std::endl;
+    std::cout << "HighLevelCommands.at(0).size()" << HighLevelCommands.at(0).size() << std::endl;
+    std::cout << "TrackingFlags.at(0).size()" << TrackingFlags.at(0).size() << std::endl;
+    std::cout << "TimeCounter.at(0).size()" << TimeCounter.at(0).size() << std::endl;
+    std::cout << "Yaws.at(0).size()" << Yaws.at(0).size() << std::endl;
     try {
         for (int i = 0; i < DesiredPositions.at(0).size(); i++) {
+
+
             for (int n = 0; n < numCopters; n++) {
+//                std::cout << "DesiredPositions.at(n).size() " << DesiredPositions.at(n).size() << std::endl;
                 addVectorToCSV(csv, DesiredPositions.at(n).at(i));
             }
             for (int n = 0; n < numCopters; n++) {
+//                std::cout << "Positions.at(n).size() " << DesiredPositions.at(n).size() << std::endl;
                 addVectorToCSV(csv, Positions.at(n).at(i));
             }
             for (int n = 0; n < numCopters; n++) {
