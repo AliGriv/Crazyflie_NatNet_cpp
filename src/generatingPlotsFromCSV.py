@@ -2,7 +2,7 @@ import pandas as pd
 import plotly.express as px
 
 ### Global Variables, please define them first
-numCopters = 3
+numCopters = 1
 fileName = 'data.csv'
 delimiter_of_file =';'
 
@@ -39,7 +39,7 @@ if __name__ == '__main__':
         plots_name.append(create_variables_list("Yaw", i, []))
         time_axis.append(create_variables_list("TimeCounter", i, []))
     print(plots_name)
-
+    print(time_axis)
 
     print("Reading the CSV file")
     df = pd.read_csv('data.csv', delimiter=delimiter_of_file)
@@ -49,7 +49,7 @@ if __name__ == '__main__':
         title = plt_names[0][0:index]
         id = int(plt_names[0][index+1])
 
-        fig = px.line(df, x=time_axis[id], y=plt_names, title=title)
+        fig = px.line(df, x=time_axis[id][0], y=plt_names, title=title)
         fig.show()
 
 
