@@ -18,6 +18,7 @@
 #include "NatNetTypes.h"
 #include "NatNetCAPI.h"
 #include "NatNetClient.h"
+#include <condition_variable>
 #include "signal.h"
 
 /* Global Variables */
@@ -38,7 +39,13 @@ NatNetClient* g_pClient = NULL;
 sNatNetClientConnectParams g_connectParams;
 sServerDescription g_serverDescription;
 int g_analogSamplesPerMocapFrame = 0;
-bool IsNatNetReceiverInCall = false;
+
+//The following variables are supposed to help with event handling between NatNet callback and mainThread
+//bool IsNatNetReceiverInCall = false;
+std::mutex m_event;
+std::condition_variable cv_event;
+bool ready_event = false;
+
 /* End of Global Variables */
 
 /* Functions' Prototypes */
@@ -61,57 +68,66 @@ void mainThread_run(Sensor &sensor,
     std::vector <Eigen::Vector3d> position_cache;
     std::vector <Eigen::Vector4d> orientation_cache;
     std::vector <bool> trackingFlags_cache;
-    std::chrono::steady_clock::time_point expInitTime;
-    std::chrono::steady_clock::time_point time_temp;
+    std::chrono::high_resolution_clock::time_point expInitTime;
+    std::chrono::high_resolution_clock::time_point time_temp;
 
     while (true) {
         if (!EmergencyStopExperiment) { //proceed with natural main code
             if (trajPlanner.ARM_FLAG && !trajPlanner.FAILSAFE_FLAG && !sensor.FAILSAFE_FLAG) {
-                if (!IsNatNetReceiverInCall) {
-                    //I hope this helps, as a sort of event handling procedure
-                    position_cache = positions;
-                    orientation_cache = orientations;
-                    trackingFlags_cache = trackingFlags;
-                    if (!sensor.initFlag) {
-                        sensor.process(position_cache, orientation_cache, trackingFlags_cache);
-                        //precious_positions = position;
-                        expInitTime = std::chrono::steady_clock::now();
-                    }
-                    else {
-                        time_temp = std::chrono::steady_clock::now();
-                        std::chrono::steady_clock::duration time_span = time_temp - expInitTime;
-                        expTime = time_span.count();
-                        sensor.process(position_cache, orientation_cache, trackingFlags_cache);
-                        //positions_previous = positions
-                        trajPlanner.generate(expTime, sensor.Position, sensor.Velocity);
-                        controller.control_allocation(expTime, sensor.yawFiltered,
-                                                      trajPlanner.errors, trajPlanner.phase,
-                                                      trajPlanner.rampUpDuration,
-                                                      trajPlanner.rampDownDuration);
-
-                        m_in_main.lock();
-                        commandsToGo = controller.mappedCommands;
-                        m_in_main.unlock();
-                        for (int i = 0; i < numRigidBodies; i++) {
-                            Eigen::Vector3d Offset(trajPlanner.xOffsets.at(i), trajPlanner.yOffsets.at(i), 0.0);
-                            rec.appendDesiredPosition(trajPlanner.desiredPose + Offset, i);
-
-                            rec.appendHighLevelCommand(controller.fXYZ.at(i), i);
-                            rec.appendPositionError(trajPlanner.errors.at((i)), i);
-                            rec.appendPosition(sensor.Position.at(i), i);
-                            rec.appendVelocity(sensor.Velocity.at(i), i);
-                            rec.appendYaw(sensor.yawFiltered.at(i), i);
-                            rec.appendCommand(controller.mappedCommands.at(i), i);
-                            rec.appendTrackingFlag(trackingFlags_cache.at(i), i);
-                            rec.appendTime(expTime, i);
-                        }
-
-                    }
+                std::unique_lock<std::mutex> lk(m_event);
+                cv_event.wait(lk, []{return ready_event;});
+                //I hope this helps, as a sort of event handling procedure
+                position_cache = positions;
+                orientation_cache = orientations;
+                trackingFlags_cache = trackingFlags;
+                if (!sensor.initFlag) {
+                    sensor.process(position_cache, orientation_cache, trackingFlags_cache);
+                    //precious_positions = position;
+                    expInitTime = std::chrono::high_resolution_clock::now();
                 }
                 else {
-                    continue; // go for another round of loop
+                    time_temp = std::chrono::high_resolution_clock::now();
+                    auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(time_temp - expInitTime);
+                    expTime = time_span.count();
+                    sensor.process(position_cache, orientation_cache, trackingFlags_cache);
+                    //positions_previous = positions
+                    trajPlanner.generate(expTime, sensor.Position, sensor.Velocity);
+                    controller.control_allocation(expTime, sensor.yawFiltered,
+                                                  trajPlanner.errors, trajPlanner.phase,
+                                                  trajPlanner.rampUpDuration,
+                                                  trajPlanner.rampDownDuration);
+
+                    m_in_main.lock();
+                    commandsToGo = controller.mappedCommands;
+                    m_in_main.unlock();
+                    for (int i = 0; i < numRigidBodies; i++) {
+                        Eigen::Vector3d Offset(trajPlanner.xOffsets.at(i), trajPlanner.yOffsets.at(i), 0.0);
+                        rec.appendDesiredPosition(trajPlanner.desiredPose + Offset, i);
+                        rec.appendOrientation(orientation_cache.at(i), i);
+                        rec.appendHighLevelCommand(controller.fXYZ.at(i), i);
+                        rec.appendPositionError(trajPlanner.errors.at(i), i);
+                        rec.appendPosition(sensor.Position.at(i), i);
+                        rec.appendVelocity(sensor.Velocity.at(i), i);
+                        rec.appendYaw(sensor.yawFiltered.at(i), i);
+                        rec.appendCommand(controller.mappedCommands.at(i), i);
+                        rec.appendTrackingFlag(trackingFlags_cache.at(i), i);
+                        rec.appendTime(expTime, i);
+                    }
+                    }
+                loop_counter++;
+//                    std::cout << "loop_counter " << loop_counter << std::endl;
+                if (loop_counter % 1000 == 0) {
+                    time_temp = std::chrono::high_resolution_clock::now();
+                    auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(time_temp - expInitTime);
+
+//                        std::cout << "time_span.count()" << time_span.count() << std::endl;
+                    std::cout << "Average loop rate (main thread) is " << loop_counter / (time_span.count()) << "Hz"
+                              << std::endl;
                 }
-            } else {
+                ready_event = false;
+                lk.unlock();
+            }
+            else {
                 // Case1: Experiment is completed
                 if (!trajPlanner.ARM_FLAG && !trajPlanner.FAILSAFE_FLAG && !sensor.FAILSAFE_FLAG) {
                     std::cout << "Experiment Completed successfully" << std::endl;
@@ -134,16 +150,18 @@ void mainThread_run(Sensor &sensor,
                 }
                 rec.saveDataToFile();
                 rec.printVariableNames();
-                rec.generatePlots();
+//                rec.generatePlots();
                 break;
             }
-            loop_counter++;
-            if (loop_counter % 1000 == 0) {
-                time_temp = std::chrono::steady_clock::now();
-                std::chrono::steady_clock::duration time_span = time_temp - expInitTime;
-                std::cout << "Average loop rate (main thread) is " << loop_counter / (time_span.count()) << "Hz"
-                          << std::endl;
-            }
+//            loop_counter++;
+//            if (loop_counter % 1000 == 0) {
+//                time_temp = std::chrono::high_resolution_clock::now();
+//                auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(time_temp - expInitTime);
+//                std::cout << "loop_counter " << loop_counter << std::endl;
+//                std::cout << "time_span.count()" << time_span.count() << std::endl;
+//                std::cout << "Average loop rate (main thread) is " << loop_counter / (time_span.count()) << "Hz"
+//                          << std::endl;
+//            }
         }
         else {
             std::cout << "Main thread is closing due to keyboard interrupt" << std::endl;
@@ -157,21 +175,21 @@ void mainThread_run(Sensor &sensor,
 
 void comThread_run(){
     int rate = 100;
-    int loop_counter = 0;
+//    int loop_counter = 0;
 
     while (!EmergencyStopExperiment && !stopExperiment) {
         for (int i = 0; i < numRigidBodies; i++) {
-            cfs.at(i).sendSetpoint(commandsToGo.at(i).roll, commandsToGo.at(i).pitch,
-                                   commandsToGo.at(i).yawRate, commandsToGo.at(i).throttle);
+//            cfs.at(i).sendSetpoint(commandsToGo.at(i).roll, commandsToGo.at(i).pitch,
+//                                   commandsToGo.at(i).yawRate, commandsToGo.at(i).throttle);
             std::this_thread::sleep_for(std::chrono::milliseconds(1));
         }
         std::this_thread::sleep_for(std::chrono::milliseconds (1000*(1/rate)-numRigidBodies));
 
-        loop_counter++;
+//        loop_counter++;
     }
-    for (int i = 0; i < numRigidBodies; i++) {
-        cfs.at(i).sendSetpoint(0.0,0.0,0.0,0);
-    }
+//    for (int i = 0; i < numRigidBodies; i++) {
+//        cfs.at(i).sendSetpoint(0.0,0.0,0.0,0);
+//    }
     std::cout << "comThread is finished" << std::endl;
 }
 
@@ -184,16 +202,17 @@ int main() {
     uri_list.emplace_back("radio://0/80/2M/E7E7E7E7E6");
 
     int numCopters = uri_list.size();
-    int numRigidBodies = numCopters;
+    std::cout << "numCopters" << numCopters << std::endl;
+    numRigidBodies = numCopters;
 
     std::cout << "Initializing Crazyflies ---> Rebooting and Sending Zero Commands" << std::endl;
-    for (int i = 0; i < numCopters; i++) {
-        Crazyflie temp_cf(uri_list.at(i));
-        cfs.push_back(temp_cf);
-        cfs.at(i).reboot();
-        // Let's prepare the for the flight
-        cfs.at(i).sendSetpoint(0.0,0.0,0.0,0);
-    }
+//    for (int i = 0; i < numCopters; i++) {
+//        Crazyflie temp_cf(uri_list.at(i));
+//        cfs.push_back(temp_cf);
+//        cfs.at(i).reboot();
+//        // Let's prepare the for the flight
+//        cfs.at(i).sendSetpoint(0.0,0.0,0.0,0);
+//    }
 
     std::this_thread::sleep_for(std::chrono::seconds(3));
 
@@ -284,7 +303,8 @@ int main() {
 }
 
 void NATNET_CALLCONV receiveRigidBodyFrame(sFrameOfMocapData* data, void* pUserData) {
-    IsNatNetReceiverInCall = true;
+    std::lock_guard<std::mutex> lk(m_event);
+//    IsNatNetReceiverInCall = true;
     NatNetClient* pClient = (NatNetClient*) pUserData;
     // FrameOfMocapData params
     bool bIsRecording = ((data->params & 0x01)!=0);
@@ -294,8 +314,9 @@ void NATNET_CALLCONV receiveRigidBodyFrame(sFrameOfMocapData* data, void* pUserD
     if(bTrackedModelsChanged)
         printf("Models Changed.\n");
     // Rigid Bodies
-    printf("Rigid Bodies [Count=%d]\n", data->nRigidBodies);
+//    printf("Rigid Bodies [Count=%d]\n", data->nRigidBodies);
     if (numRigidBodies != data->nRigidBodies) {
+        std::cout << "numRigidBodies is " << numRigidBodies << std::endl;
         std::cout << "Number of received rigid bodies does not match the expectarion" << std::endl;
         return;
     }
@@ -303,15 +324,17 @@ void NATNET_CALLCONV receiveRigidBodyFrame(sFrameOfMocapData* data, void* pUserD
     for(int i=0; i < data->nRigidBodies; i++) {
         trackingFlags.at(i) = data->RigidBodies[i].params & 0x01;
         positions.at(i)(0) = data->RigidBodies[i].x;
-        positions.at(i)(1) = data->RigidBodies[i].y;
-        positions.at(i)(2) = data->RigidBodies[i].z;
+        positions.at(i)(1) = -data->RigidBodies[i].z;
+        positions.at(i)(2) = data->RigidBodies[i].y;
         orientations.at(i)(0) = data->RigidBodies[i].qx;
         orientations.at(i)(1) = data->RigidBodies[i].qy;
         orientations.at(i)(2) = data->RigidBodies[i].qz;
         orientations.at(i)(3) = data->RigidBodies[i].qw;
     }
 //    position_storage.push_back(positions);
-    IsNatNetReceiverInCall = false;
+//    IsNatNetReceiverInCall = false;
+    ready_event = true;
+    cv_event.notify_one();
 }
 
 
