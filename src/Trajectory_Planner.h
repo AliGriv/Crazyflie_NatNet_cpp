@@ -37,13 +37,13 @@ public:
     double trajStartDelay = 2; //During this period operation phase is 2 (closed-loop control) but trajectories have not started yet. (Desired position is set to [0, 0, 0])
     double rampDownDuration = 0; //During this period operation phase is 3 and props ramp down no closed-loop control.
     double expTimeTotal = 0; //The totall time from expTime = 0 (absolute zero) to the end of trajectories (landing).
-    double trajType = 2; //set to 1 for set points and to 2 for smooth polynomials.
+    int trajType = 2; //set to 1 for set points and to 2 for smooth polynomials.
     int phase = 0;
 
     // setPointCoordinates is a vector of vectos in shape {x,y,z,t}
     // The sequence of coordinates for the leader copter to get to at a certain time, [x,y,z, Time] all in the world frame!
     //NOTE: the initial coordinate of the leader is 0 0 0.
-
+//
     /* Determine this */
     std::vector <std::vector <double>> setPointCoordinates {{0.0,0.0,0.0,0.0} ,{0.0,0.0,1.5,5.0}, {0.0,0.0,1.5,10.0}, {0.0,0.0,0.0,5.0}};
     std::vector <double> xOffsets {0.0}; // X coordinates of all copters w.r.t the leader e.g. {0, 1.2, 0.5}
