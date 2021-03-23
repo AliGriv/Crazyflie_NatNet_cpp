@@ -21,14 +21,15 @@ public:
         posOld_m = Eigen::MatrixXd::Zero(channelNum,1);
         velCur_m = Eigen::MatrixXd::Zero(channelNum,1);
     }
-    Eigen::VectorXd numDiff_FIR(Eigen::VectorXd curChannelData) {
+    Eigen::VectorXd numDiff_FIR(Eigen::VectorXd curChannelData, double delta = 0.008) {
         for (int i = 0; i < curChannelData.size(); i++) {
-            velCur_m(i,0) = (curChannelData(i) - posOld_m(i,0))/0.008; //Numerical differntiation to get current velocity
+            velCur_m(i,0) = (curChannelData(i) - posOld_m(i,0))/delta; //Numerical differntiation to get current velocity
             posOld_m(i,0) = curChannelData(i); //update old position
         }
         velDataRaw_m.block(0,1,velDataRaw_m.rows(),velDataRaw_m.cols()-1) = velDataRaw_m.block(0,0,velDataRaw_m.rows(),velDataRaw_m.cols()-1); //Shift all elements to the right by 1
         velDataRaw_m.block(0,0,velDataRaw_m.rows(),1) = velCur_m;
-        return velDataRaw_m * FIR_coeffs_vec.transpose();
+//        return velDataRaw_m * FIR_coeffs_vec.transpose();
+        return velDataRaw_m * FIR_coeffs_vec;
     }
 
 private:
