@@ -49,3 +49,9 @@ target_include_directories(Main PUBLIC Crazyflie/crazyflie_cpp/include)
 target_link_directories(Main PUBLIC NatNet)
 target_link_libraries(Main PUBLIC NatNetUtility NatNetLibs -lNatNetLibShared)
 
+add_executable(Velocity_filter_test src/velocity_filter_test.cpp)
+target_link_libraries(Velocity_filter_test PUBLIC Eigen3::Eigen GNU_Plot Velocity_Filter Sensor)
+target_include_directories(Velocity_filter_test PUBLIC GNUPlot )
+
+add_executable(condition_var_test src/condition_var_test.cpp)
+target_link_libraries(condition_var_test PUBLIC Eigen3::Eigen)

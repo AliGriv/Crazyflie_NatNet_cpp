@@ -15,6 +15,7 @@
 #include "Recorder.h"
 #include <cmath>
 #include "signal.h"
+#include "PB_Control.h"
 
 bool stop = false;
 
@@ -32,8 +33,20 @@ void signal_callback_handler(int signum) {
 //    exit(signum);
     stop = true;
 }
+int sign(double variable) {
+    return ((0.0 <= variable) - (variable < 0.0));
+}
 
 int main() {
+
+
+    double remainder = fmod(0.05, M_PI);
+    std::cout << "remainder is " << remainder << std::endl;
+    std::cout << "atan(1) is " << atan(1.0) << std::endl;
+    std::cout << "fabs(-5.6) is " << fabs(-5.6) << std::endl;
+    std::cout << "sign(0.0) is " << sign(0.0) << std::endl;
+    PB_Control ctrl(1);
+    std::cout << ctrl.saturate(1.5,1.0) << std::endl;
 //    CSVWriter csv;
 //    auto t0 = std::chrono::high_resolution_clock::now();
 //    signal(SIGINT, signal_callback_handler);
@@ -116,7 +129,7 @@ int main() {
 //    std::cout << aa << " " << aa + 'x' << std::endl;
 //    std::cout << aa + aa << std::endl;
 //
-    Recorder rec(3);
+//    Recorder rec(3);
 
 //    for (int n=0; n < 3; n++){
 //        for (int i = 0; i < 1000; i++) {
@@ -130,6 +143,6 @@ int main() {
 //    rec.generatePlots();
 
 //    rec.saveDataToFile();
-    rec.printVariableNames();
+//    rec.printVariableNames();
     return 0;
 }
