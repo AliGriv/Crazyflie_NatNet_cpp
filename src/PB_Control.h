@@ -165,10 +165,14 @@ public:
         if ((fabs(remainder - M_PI) <= delta) || (fabs(remainder + M_PI) <= delta)) {
             roll_temp = asin(highLC(1)/throttle_temp);
             pitch_temp = -atan(highLC(0)/highLC(2));
+            if (isnanl(pitch_temp)) {
+                std::cout << "highLC(0)" << highLC(0) << std::endl;
+                std::cout << "highLC(2)" << highLC(2) << std::endl;
+            }
         }
         else {
             // n_roll = (math.tan(yaw/2)**2 * throttle - (ux**2 * math.tan(yaw/2)**4 - 2 * ux**2 * math.tan(yaw/2)**2 + 4 * uy**2 * math.tan(yaw/2)**2 + 2 * uz**2 * math.tan(yaw/2)**2 + uz**2 * math.tan(yaw/2)**4 + ux**2 + uz**2 + 4 * ux * uy * math.tan(yaw/2) - 4 * ux * uy * math.tan(yaw/2)**3)**(1/2) + throttle)
-            n_roll = (pow(tan(yaw_val/2),2)*throttle_temp - sqrt(pow(highLC(0),2) + pow(tan(yaw_val/2),4) - 2*pow(highLC(0),2)*pow(tan(yaw_val/2),2) + 4 * pow(highLC(1),2) * pow(tan(yaw_val/2),2) + 2 * pow(highLC(2),2) * pow(tan(yaw_val/2),2) + pow(highLC(2),2) * pow(tan(yaw_val/2),4) + pow(highLC(0),2) + pow(highLC(2),2) + 4 * highLC(0) * highLC(1) * tan(yaw_val/2) - 4 * highLC(0) * highLC(1) * pow(tan(yaw_val/2),3))* + throttle_temp);
+            n_roll = (pow(tan(yaw_val/2),2)*throttle_temp - sqrt(pow(highLC(0),2) * pow(tan(yaw_val/2),4) - 2*pow(highLC(0),2)*pow(tan(yaw_val/2),2) + 4 * pow(highLC(1),2) * pow(tan(yaw_val/2),2) + 2 * pow(highLC(2),2) * pow(tan(yaw_val/2),2) + pow(highLC(2),2) * pow(tan(yaw_val/2),4) + pow(highLC(0),2) + pow(highLC(2),2) + 4 * highLC(0) * highLC(1) * tan(yaw_val/2) - 4 * highLC(0) * highLC(1) * pow(tan(yaw_val/2),3)) + throttle_temp);
             d_roll = pow(highLC(1)*tan(yaw_val/2),2) - highLC(1) + 2*highLC(0)*tan(yaw_val/2);
             if (fabs(d_roll) < epsilon) {
                 roll_temp = 0.0;
@@ -177,13 +181,17 @@ public:
                 roll_temp = 2*atan(n_roll/d_roll);
             }
             // Finding Pitch
-            n_pitch = (highLC(2) - sqrt(pow(pow(highLC(0),2),4) - 2 * pow(highLC(0),2) * pow(tan(yaw_val/2),2) + 4 * pow(highLC(1),2) * pow(tan(yaw_val/2),2) + 2 * pow(highLC(2),2) * pow(tan(yaw_val/2),2) + pow(highLC(0),2) + pow(highLC(2),2) + 4 * highLC(0) * highLC(1) * tan(yaw_val/2) - 4 * highLC(0) * highLC(1) * pow(tan(yaw_val/2),3) + highLC(2)) * pow(tan(yaw_val/2),2) );
+            n_pitch = (highLC(2) - sqrt(pow(highLC(0),2)*pow(tan(yaw_val/2),4) - 2 * pow(highLC(0),2) * pow(tan(yaw_val/2),2) + 4 * pow(highLC(1),2) * pow(tan(yaw_val/2),2) + 2 * pow(highLC(2),2) * pow(tan(yaw_val/2),2) + pow(highLC[2],2)*pow(tan(yaw_val/2),4) + pow(highLC(0),2) + pow(highLC(2),2) + 4 * highLC(0) * highLC(1) * tan(yaw_val/2) - 4 * highLC(0) * highLC(1) * pow(tan(yaw_val/2),3)) + highLC(2) * pow(tan(yaw_val/2),2) );
             d_pitch = (highLC(0) - highLC(0) * pow(tan(yaw_val/2),2) + 2 * highLC(1) * tan(yaw_val/2));
             if (fabs(d_pitch) < epsilon) {
-                pitch_temp = 0;
+                pitch_temp = 0.0;
             }
             else{
                 pitch_temp = -2 * atan(n_pitch/d_pitch);
+            }
+            if (isnanl(pitch_temp)) {
+                std::cout << "n_pitch" << n_pitch << std::endl;
+                std::cout << "d_pitch" << d_pitch << std::endl;
             }
         }
         return std::vector <double> {throttle_temp, roll_temp, pitch_temp};
@@ -252,9 +260,9 @@ public:
                 //Find Low-level commands
                 std::vector <double> lowLC = find_lowLC(sat_highLC, yaw_val.at(i));
                 throttle.at(i) = saturate(lowLC.at(0), maxThrottle);
-                roll.at(i) = saturate(lowLC.at(i), maxRoll); // This is in radians.
+                roll.at(i) = saturate(lowLC.at(1), maxRoll); // This is in radians.
                 pitch.at(i) = saturate(lowLC.at(2), maxPitch); // This is in radians.
-                yawRate[i] = saturate(yawKp * (0 - yaw_val.at(i)), maxYawRate); //Radian per second
+                yawRate.at(i) = saturate(yawKp * (0 - yaw_val.at(i)), maxYawRate); //Radian per second
             }
         }
         else if (phase == 3) {
