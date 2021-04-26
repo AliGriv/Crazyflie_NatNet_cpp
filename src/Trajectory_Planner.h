@@ -45,7 +45,17 @@ public:
     //NOTE: the initial coordinate of the leader is 0 0 0.
 //
     /* Determine this */
-    std::vector <std::vector <double>> setPointCoordinates {{0.0,0.0,0.0,0.0} ,{0.0,0.0,1.5,5.0}, {0.0,0.0,1.5,10.0}, {0.0,0.0,0.0,5.0}};
+//    std::vector <std::vector <double>> setPointCoordinates {{0.0,0.0,0.0,0.0} ,{0.0,0.0,1.5,5.0}, {-1.5,-1.5,1.5,4.0}, {0.0,0.0,1.5,4.0}, {-1.5,-1.5,1.5,4.0}, {0.0,0.0,1.5,4.0}, {0.0,0.0,0.0,5.0}};
+
+    std::vector <std::vector <double>> setPointCoordinates {{0.0,0.0,0.0,0.0} ,{0.0,0.0,1.5,5.0}, {0.0,0.0,1.5,35.0}, {0.0,0.0,0.0,5.0}};
+
+    /*{-1.5,-1.5,1.5,4.0}, {0.0,0.0,1.5,4.0}, {-1.5,-1.5,1.5,4.0}, {0.0,0.0,1.5,4.0},*/
+//    setPointCoordinates.push_back(std::vector<double>{-1.5,-1.5,1.5,4.0});
+//    setPointCoordinates.push_back({0.0,0.0,1.5,4.0});
+//    setPointCoordinates.push_back({-1.5,-1.5,1.5,4.0});
+//    setPointCoordinates.push_back({0.0,0.0,1.5,4.0});
+//    setPointCoordinates.push_back({0.0,0.0,0.0,5.0});
+
     std::vector <double> xOffsets {0.0}; // X coordinates of all copters w.r.t the leader e.g. {0, 1.2, 0.5}
     std::vector <double> yOffsets {0.0}; // Y coordinates of all copters w.r.t the leader e.g. {0, 0, -0.8}
     /* End of Determine this */
@@ -195,7 +205,7 @@ public:
             }
             else if (expTime < expTimeTotal) {
                 if (setPointCoordinates[index][3] > expTime - expTimeElapsed) {
-                    int derivativeEnable = 0;
+                    int derivativeEnable = 1;
                     DX(0) = coffsX.at(index-1).transpose() * T_vector3(expTime);
                     DX(1) = coffsY.at(index-1).transpose() * T_vector3(expTime);
                     DX(2) = coffsZ.at(index-1).transpose() * T_vector3(expTime);

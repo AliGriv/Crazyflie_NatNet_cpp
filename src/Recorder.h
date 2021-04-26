@@ -213,12 +213,19 @@ void Recorder::createVariableNames(const int num_copters) {
         }
     }
     for (int i=0; i < num_copters; i++) {
-        std::string name = "Command";
+        std::string name = "OrientationCommand";
         std::string id = std::to_string(i);
         name += '[' + id + ']';
-        for (auto c: {"roll","pitch","throttle","yawrate"}) {
+        for (auto c: {"roll","pitch","yawrate"}) {
             VariableNames.push_back(name + c);
         }
+    }
+    for (int i=0; i < num_copters; i++) {
+        std::string name = "ThrustCommand";
+        std::string id = std::to_string(i);
+        name += '[' + id + ']';
+        VariableNames.push_back(name);
+
     }
     for (int i=0; i < num_copters; i++) {
         std::string name = "HighLevelCommand";
@@ -299,7 +306,10 @@ void Recorder::addVariablesToCSV(CSVWriter &csv) {
                 addVectorToCSV(csv, Orientations.at(n).at(i));
             }
             for (int n = 0; n < numCopters; n++) {
-                csv << Commands.at(n).at(i).roll << Commands.at(n).at(i).pitch << Commands.at(n).at(i).throttle << Commands.at(n).at(i).yawRate;
+                csv << Commands.at(n).at(i).roll << Commands.at(n).at(i).pitch << Commands.at(n).at(i).yawRate;
+            }
+            for (int n = 0; n < numCopters; n++) {
+                csv << Commands.at(n).at(i).throttle;
             }
             for (int n = 0; n < numCopters; n++) {
                 addVectorToCSV(csv, HighLevelCommands.at(n).at(i));

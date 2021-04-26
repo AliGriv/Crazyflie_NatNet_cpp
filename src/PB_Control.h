@@ -49,6 +49,8 @@ public:
     double maxThrottle;
     /* To change the values check the constructor */
 
+    double mass = 0.03;
+
     std::vector <double> throttle; //in range (0,1). 1 being max throttle available and 0 being no throttle.
     std::vector <double> roll; //rad
     std::vector <double> pitch; //rad
@@ -56,7 +58,7 @@ public:
     std::vector <Eigen::Vector3d> fXYZ;
 
     // Commands for the crazyflie
-    const int MAX_THROTTLE_CF = 65000;
+    const int MAX_THROTTLE_CF = 60000;
     const int MIN_THROTTLE_CF = 20000;
     std::vector <int> throttleCF;
     std::vector <double> rollCF;
@@ -116,8 +118,8 @@ public:
     /* Please define your gains here :D */
     void setGains(){ //Define and push_back as many as you need
         Eigen::VectorXd kPos_i (6);
-        kPos_i << 0.35,0.35,0.9,0.15,0.15,0.2;
-        kPos_i = 40 * kPos_i;
+        kPos_i << 0.5,0.5,3.1,0.2,0.2,0.5;
+        kPos_i = 1.6 * kPos_i;
         kPos.push_back(kPos_i);
     }
 
@@ -143,15 +145,18 @@ public:
         }
     }
 
-    Eigen::Vector3d find_highLC(const Eigen::VectorXd &errors, const Eigen::VectorXd &gain) {
+    Eigen::Vector3d find_highLC(const Eigen::VectorXd &errors, const Eigen::VectorXd &gain, const Eigen::VectorXd &desiredAcc) {
         Eigen::Vector3d u;
-        u(0) = gain(0) * errors(0) + gain(3) * errors(3);
-        u(1) = gain(1) * errors(1) + gain(4) * errors(4);
-        u(2) = gain(2) * errors(2) + gain(5) * errors(5);
+        u(0) = gain(0) * errors(0) + gain(3) * errors(3) + mass * desiredAcc(0);
+        u(1) = gain(1) * errors(1) + gain(4) * errors(4) + mass * desiredAcc(1);
+        u(2) = gain(2) * errors(2) + gain(5) * errors(5) + mass * desiredAcc(2);
+//        std::cout << "errors.transpose() is " << errors.transpose() << std::endl;
+//        std::cout << "u.transpose() is " << u.transpose() << std::endl;
         return u;
     }
 
-    std::vector <double> find_lowLC(const Eigen::Vector3d &highLC, const double &yaw_val) {
+    std::vector <double> find_lowLC(const Eigen::Vector3d &highLC, double yaw_val) {
+//        yaw_val = 0.0;
         // Finding throttle
         double throttle_temp = highLC.norm();
         // Finding roll and pitch
@@ -161,19 +166,25 @@ public:
         double d_roll;
         double n_pitch, d_pitch;
 
+
+        double ux = highLC[0];
+        double uy = highLC[1];
+        double uz = highLC[2];
+
         double remainder = fmod(yaw_val, 2*M_PI);
         if ((fabs(remainder - M_PI) <= delta) || (fabs(remainder + M_PI) <= delta)) {
-            roll_temp = asin(highLC(1)/throttle_temp);
-            pitch_temp = -atan(highLC(0)/highLC(2));
-            if (isnanl(pitch_temp)) {
-                std::cout << "highLC(0)" << highLC(0) << std::endl;
-                std::cout << "highLC(2)" << highLC(2) << std::endl;
-            }
+            roll_temp = asin(uy/throttle_temp);
+            pitch_temp = -atan(ux/uz);
+//            if (isnanl(pitch_temp)) {
+//                std::cout << "highLC(0)" << highLC(0) << std::endl;
+//                std::cout << "highLC(2)" << highLC(2) << std::endl;
+//            }
         }
         else {
-            // n_roll = (math.tan(yaw/2)**2 * throttle - (ux**2 * math.tan(yaw/2)**4 - 2 * ux**2 * math.tan(yaw/2)**2 + 4 * uy**2 * math.tan(yaw/2)**2 + 2 * uz**2 * math.tan(yaw/2)**2 + uz**2 * math.tan(yaw/2)**4 + ux**2 + uz**2 + 4 * ux * uy * math.tan(yaw/2) - 4 * ux * uy * math.tan(yaw/2)**3)**(1/2) + throttle)
-            n_roll = (pow(tan(yaw_val/2),2)*throttle_temp - sqrt(pow(highLC(0),2) * pow(tan(yaw_val/2),4) - 2*pow(highLC(0),2)*pow(tan(yaw_val/2),2) + 4 * pow(highLC(1),2) * pow(tan(yaw_val/2),2) + 2 * pow(highLC(2),2) * pow(tan(yaw_val/2),2) + pow(highLC(2),2) * pow(tan(yaw_val/2),4) + pow(highLC(0),2) + pow(highLC(2),2) + 4 * highLC(0) * highLC(1) * tan(yaw_val/2) - 4 * highLC(0) * highLC(1) * pow(tan(yaw_val/2),3)) + throttle_temp);
-            d_roll = pow(highLC(1)*tan(yaw_val/2),2) - highLC(1) + 2*highLC(0)*tan(yaw_val/2);
+
+            n_roll = (pow(tan(yaw_val/2),2) * throttle_temp - pow((pow(ux,2) * pow(tan(yaw_val/2),4) - 2 * pow(ux,2) * pow(tan(yaw_val/2),2) + 4 * pow(uy,2) * pow(tan(yaw_val/2),2) + 2 * pow(uz,2) * pow(tan(yaw_val/2),2) + pow(uz,2) * pow(tan(yaw_val/2),4) + pow(ux,2) + pow(uz,2) + 4 * ux * uy * tan(yaw_val/2) - 4 * ux * uy * pow(tan(yaw_val/2),3)),(0.5)) + throttle_temp);
+            d_roll = (uy * pow(tan(yaw_val/2),2) - uy + 2 * ux * tan(yaw_val/2));
+
             if (fabs(d_roll) < epsilon) {
                 roll_temp = 0.0;
             }
@@ -181,18 +192,20 @@ public:
                 roll_temp = 2*atan(n_roll/d_roll);
             }
             // Finding Pitch
-            n_pitch = (highLC(2) - sqrt(pow(highLC(0),2)*pow(tan(yaw_val/2),4) - 2 * pow(highLC(0),2) * pow(tan(yaw_val/2),2) + 4 * pow(highLC(1),2) * pow(tan(yaw_val/2),2) + 2 * pow(highLC(2),2) * pow(tan(yaw_val/2),2) + pow(highLC[2],2)*pow(tan(yaw_val/2),4) + pow(highLC(0),2) + pow(highLC(2),2) + 4 * highLC(0) * highLC(1) * tan(yaw_val/2) - 4 * highLC(0) * highLC(1) * pow(tan(yaw_val/2),3)) + highLC(2) * pow(tan(yaw_val/2),2) );
-            d_pitch = (highLC(0) - highLC(0) * pow(tan(yaw_val/2),2) + 2 * highLC(1) * tan(yaw_val/2));
+            n_pitch = (uz - pow((pow(ux,2) * pow(tan(yaw_val/2),4) - 2 * pow(ux,2) * pow(tan(yaw_val/2),2) + 4 * pow(uy,2) * pow(tan(yaw_val/2),2) + 2 * pow(uz,2) * pow(tan(yaw_val/2),2) + pow(uz,2) * pow(tan(yaw_val/2),4) + pow(ux,2) + pow(uz,2) + 4 * ux * uy * tan(yaw_val/2) - 4 * ux * uy * pow(tan(yaw_val/2),3)),0.5) + uz * pow(tan(yaw_val/2),2));
+            
+            d_pitch = (ux - ux * pow(tan(yaw_val/2),2) + 2 * uy * tan(yaw_val/2));
+
             if (fabs(d_pitch) < epsilon) {
                 pitch_temp = 0.0;
             }
             else{
                 pitch_temp = -2 * atan(n_pitch/d_pitch);
             }
-            if (isnanl(pitch_temp)) {
-                std::cout << "n_pitch" << n_pitch << std::endl;
-                std::cout << "d_pitch" << d_pitch << std::endl;
-            }
+//            if (isnanl(pitch_temp)) {
+//                std::cout << "n_pitch" << n_pitch << std::endl;
+//                std::cout << "d_pitch" << d_pitch << std::endl;
+//            }
         }
         return std::vector <double> {throttle_temp, roll_temp, pitch_temp};
     }
@@ -225,7 +238,7 @@ public:
 
     void control_allocation(const double &timer, const std::vector <double> &yaw_val,
                             const std::vector <Eigen::VectorXd> &errors,
-                            int phase_val, const double &rampUpDuration, const double &rampDownDuration) {
+                            int phase_val, const double &rampUpDuration, const double &rampDownDuration, const Eigen::VectorXd &desiredAcc) {
         if (!initYawFlag) {
             desiredYaw = yaw_val;
             initYawFlag = true;
@@ -250,7 +263,7 @@ public:
         else if (phase == 2) {
             // Controller is in the loop now!
             for (int i = 0; i < num_copters; i++) {
-                Eigen::Vector3d highLC = find_highLC(errors.at(i), kPos.at(i));
+                Eigen::Vector3d highLC = find_highLC(errors.at(i), kPos.at(i), desiredAcc);
                 double sat_ux = saturate(highLC[0], Throttle_bias);
                 double sat_uy = saturate(highLC[1], Throttle_bias);
                 double sat_uz = saturate(highLC[2], 2 * Throttle_bias) + Throttle_bias; //TO DO for adaptive gravity compensation

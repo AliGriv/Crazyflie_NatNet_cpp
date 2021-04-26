@@ -92,10 +92,11 @@ void mainThread_run(Sensor &sensor,
                     sensor.process(position_cache, orientation_cache, trackingFlags_cache);
                     //positions_previous = positions
                     trajPlanner.generate(expTime, sensor.Position, sensor.Velocity);
+//                    std::cout << "at " << expTime << " sec ,trajPlanner.phase is " << trajPlanner.phase << std::endl;
                     controller.control_allocation(expTime, sensor.yawFiltered,
                                                   trajPlanner.errors, trajPlanner.phase,
                                                   trajPlanner.rampUpDuration,
-                                                  trajPlanner.rampDownDuration);
+                                                  trajPlanner.rampDownDuration, trajPlanner.desiredAccel);
 
                     m_in_main.lock();
                     commandsToGo = controller.mappedCommands;
@@ -103,6 +104,7 @@ void mainThread_run(Sensor &sensor,
                     for (int i = 0; i < numRigidBodies; i++) {
                         Eigen::Vector3d Offset(trajPlanner.xOffsets.at(i), trajPlanner.yOffsets.at(i), 0.0);
                         rec.appendDesiredPosition(trajPlanner.desiredPose + Offset, i);
+//                        std::cout << trajPlanner.desiredPose(2) << std::endl;
                         rec.appendOrientation(orientation_cache.at(i), i);
                         rec.appendHighLevelCommand(controller.fXYZ.at(i), i);
                         rec.appendPositionError(trajPlanner.errors.at(i), i);
@@ -175,21 +177,31 @@ void mainThread_run(Sensor &sensor,
 
 void comThread_run(){
     int rate = 100;
-//    int loop_counter = 0;
-
+    int loop_counter = 0;
+    std::chrono::high_resolution_clock::time_point start;
+    std::chrono::high_resolution_clock::time_point time_temp;
+    start = std::chrono::high_resolution_clock::now();
     while (!EmergencyStopExperiment && !stopExperiment) {
         for (int i = 0; i < numRigidBodies; i++) {
-//            cfs.at(i).sendSetpoint(commandsToGo.at(i).roll, commandsToGo.at(i).pitch,
-//                                   commandsToGo.at(i).yawRate, commandsToGo.at(i).throttle);
+            cfs.at(i).sendSetpoint(commandsToGo.at(i).roll, -commandsToGo.at(i).pitch,
+                                   commandsToGo.at(i).yawRate, commandsToGo.at(i).throttle);
+//            std::cout << "roll: " << commandsToGo.at(i).roll << ", pitch: " << commandsToGo.at(i).pitch << ", yawRate: " << commandsToGo.at(i).yawRate << ", throttle: " << commandsToGo.at(i).throttle << std::endl;
             std::this_thread::sleep_for(std::chrono::milliseconds(1));
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds (1000*(1/rate)-numRigidBodies));
-
+        std::this_thread::sleep_for(std::chrono::milliseconds (1000/rate-numRigidBodies));
+//        if (loop_counter % 1000 == 0) {
+//            time_temp = std::chrono::high_resolution_clock::now();
+//            auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(time_temp - start);
+//
+////                        std::cout << "time_span.count()" << time_span.count() << std::endl;
+//            std::cout << "Average loop rate (com thread) is " << loop_counter / (time_span.count()) << "Hz"
+//                      << std::endl;
+//        }
 //        loop_counter++;
     }
-//    for (int i = 0; i < numRigidBodies; i++) {
-//        cfs.at(i).sendSetpoint(0.0,0.0,0.0,0);
-//    }
+    for (int i = 0; i < numRigidBodies; i++) {
+        cfs.at(i).sendSetpoint(0.0,0.0,0.0,0);
+    }
     std::cout << "comThread is finished" << std::endl;
 }
 
@@ -198,21 +210,22 @@ void comThread_run(){
 int main() {
 
     std::vector <std::string> uri_list;
-//    uri_list.emplace_back("radio://0/80/2M/E7E7E7E7E3");
-    uri_list.emplace_back("radio://0/80/2M/E7E7E7E7E6");
+    uri_list.emplace_back("radio://0/80/2M/E7E7E7E7E3");
+//    uri_list.emplace_back("radio://0/80/2M/E7E7E7E7E6");
+//    uri_list.emplace_back("radio://0/80/2M");
 
     int numCopters = uri_list.size();
     std::cout << "numCopters" << numCopters << std::endl;
     numRigidBodies = numCopters;
 
     std::cout << "Initializing Crazyflies ---> Rebooting and Sending Zero Commands" << std::endl;
-//    for (int i = 0; i < numCopters; i++) {
-//        Crazyflie temp_cf(uri_list.at(i));
-//        cfs.push_back(temp_cf);
-//        cfs.at(i).reboot();
-//        // Let's prepare the for the flight
-//        cfs.at(i).sendSetpoint(0.0,0.0,0.0,0);
-//    }
+    for (int i = 0; i < numCopters; i++) {
+        Crazyflie temp_cf(uri_list.at(i));
+        cfs.push_back(temp_cf);
+        cfs.at(i).reboot();
+        // Let's prepare the for the flight
+        cfs.at(i).sendSetpoint(0.0,0.0,0.0,0);
+    }
 
     std::this_thread::sleep_for(std::chrono::seconds(3));
 

@@ -35,7 +35,7 @@ target_include_directories(Recorder PUBLIC CSVWriter/include)
 target_include_directories(Recorder PUBLIC GNUPlot)
 target_link_libraries(Recorder PUBLIC Eigen3::Eigen CSVWriter GNU_Plot PB_Control)
 
-#install(FILES src/generatingPlotsFromCSV.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+#install(FILES src/generatingPlotsFromCSV_old.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 configure_file(src/generatingPlotsFromCSV.py ${CMAKE_CURRENT_BINARY_DIR}/generatingPlotsFromCSV.py COPYONLY)
 add_executable(scrap src/scrap.cpp)
 target_link_libraries(scrap PRIVATE crazyflie_cpp)

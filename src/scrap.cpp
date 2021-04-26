@@ -37,16 +37,80 @@ int sign(double variable) {
     return ((0.0 <= variable) - (variable < 0.0));
 }
 
+
 int main() {
 
+    std::vector<Command> commandsToGo;
+    PB_Control controller(1);
+    double timer = 1.0;
+    std::vector <double> yaw {0.0859404018968298};
+    std::vector <Eigen::VectorXd> errors;
+    Eigen::VectorXd error (6);
+    error << -0.0309407450258732, 0.0402122139930725, 0.129622719249568, 0.00977061308846123, -0.00426538426875124, -0.00902455613123227;
+    errors.push_back(error);
+    int phase = 2;
+    double rampup = 2.0;
+    double rampdown = 2.0;
+    controller.control_allocation(timer,yaw,errors,phase,rampup, rampdown, Eigen::VectorXd::Zero(3));
+    commandsToGo = controller.mappedCommands;
+    int i = 0;
+    std::cout << "roll: " << commandsToGo.at(i).roll << ", pitch: " << commandsToGo.at(i).pitch << ", yawRate: " << commandsToGo.at(i).yawRate << ", throttle: " << commandsToGo.at(i).throttle << std::endl;
+    std::cout << pow(0.01,0.5) << std::endl;
+    std::cout << pow(0.01,2) << std::endl;
 
-    double remainder = fmod(0.05, M_PI);
-    std::cout << "remainder is " << remainder << std::endl;
-    std::cout << "atan(1) is " << atan(1.0) << std::endl;
-    std::cout << "fabs(-5.6) is " << fabs(-5.6) << std::endl;
-    std::cout << "sign(0.0) is " << sign(0.0) << std::endl;
-    PB_Control ctrl(1);
-    std::cout << ctrl.saturate(1.5,1.0) << std::endl;
+
+
+    int a[3][4] = {{0,1,2,3}, {4,5,6,7}, {8,9,10,11}};
+    std::cout << "*a[2] is " << *(a[2]+3) << std::endl;
+
+    Eigen::MatrixXd AA {Eigen::MatrixXd::Identity(3,5)};
+    std::cout << "AA is\n" << AA << std::endl;
+    *AA.data() = 5.0;
+    std::cout << "AA is\n" << AA << std::endl;
+    *(AA.data()+6) = 5.0;
+    std::cout << "AA is\n" << AA << std::endl;
+
+    int rate = 100;
+    int loop_counter = 0;
+    std::chrono::high_resolution_clock::time_point start;
+    std::chrono::high_resolution_clock::time_point time_temp;
+    start = std::chrono::high_resolution_clock::now();
+    for(int i = 0; i < 10000; i++) {
+        std::this_thread::sleep_for(std::chrono::milliseconds (1000/rate));
+        loop_counter++;
+        if (loop_counter % 100 == 0) {
+            time_temp = std::chrono::high_resolution_clock::now();
+            auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(time_temp - start);
+
+//                        std::cout << "time_span.count()" << time_span.count() << std::endl;
+            std::cout << "Average loop rate (com thread) is " << loop_counter / (time_span.count()) << "Hz"
+                      << std::endl;
+        }
+
+
+    }
+    std::cout << "Let's sleep for 2 seconds :|" << std::endl;
+    start = std::chrono::high_resolution_clock::now();
+    std::this_thread::sleep_for(std::chrono::milliseconds (1000*(2)));
+    time_temp = std::chrono::high_resolution_clock::now();
+    auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(time_temp - start);
+    std::cout << "time passed was " << time_span.count() << " secs" << std::endl;
+//    double remainder = fmod(0.05, M_PI);
+//    std::cout << "remainder is " << remainder << std::endl;
+//    std::cout << "atan(1) is " << atan(1.0) << std::endl;
+//    std::cout << "fabs(-5.6) is " << fabs(-5.6) << std::endl;
+//    std::cout << "sign(0.0) is " << sign(0.0) << std::endl;
+//    PB_Control ctrl(1);
+//    std::cout << "test saturate" << std::endl;
+//    std::cout << ctrl.saturate(0.5,1.0) << std::endl;
+//
+//    Eigen::Vector3d vec;
+//    vec << 1,1,1;
+//    std::cout << "vec.norm() is " << vec.norm() << std::endl;
+//
+//    Eigen::VectorXd g(5);
+//    g << 2,2,vec;
+//    std::cout << g.transpose() << std::endl;
 //    CSVWriter csv;
 //    auto t0 = std::chrono::high_resolution_clock::now();
 //    signal(SIGINT, signal_callback_handler);
