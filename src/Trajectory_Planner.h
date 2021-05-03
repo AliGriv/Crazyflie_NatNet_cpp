@@ -47,7 +47,7 @@ public:
     /* Determine this */
 //    std::vector <std::vector <double>> setPointCoordinates {{0.0,0.0,0.0,0.0} ,{0.0,0.0,1.5,5.0}, {-1.5,-1.5,1.5,4.0}, {0.0,0.0,1.5,4.0}, {-1.5,-1.5,1.5,4.0}, {0.0,0.0,1.5,4.0}, {0.0,0.0,0.0,5.0}};
 
-    std::vector <std::vector <double>> setPointCoordinates {{0.0,0.0,0.0,0.0} ,{0.0,0.0,1.5,5.0}, {0.0,0.0,1.5,35.0}, {0.0,0.0,0.0,5.0}};
+    std::vector <std::vector <double>> setPointCoordinates {{0.0,0.0,0.0,0.0} ,{0.0,0.0,1.5,5.0}, {0.0,0.0,1.5,5.0}, {0.0,0.0,0.0,5.0}};
 
     /*{-1.5,-1.5,1.5,4.0}, {0.0,0.0,1.5,4.0}, {-1.5,-1.5,1.5,4.0}, {0.0,0.0,1.5,4.0},*/
 //    setPointCoordinates.push_back(std::vector<double>{-1.5,-1.5,1.5,4.0});
@@ -253,6 +253,205 @@ public:
 
 };
 
+
+
+class Trajectory_Planner_CSV {
+
+public:
+    double deadTime = 0;   // During deadtime operation phase remains 0 which means no ramp up no closed-loop control
+    double rampUpDuration = 2; //During this period operation phase is 1 and props ramp up still no closed-loop control
+    double trajStartDelay = 2; //During this period operation phase is 2 (closed-loop control) but trajectories have not started yet. (Desired position is set to [0, 0, 0])
+    double rampDownDuration = 0; //During this period operation phase is 3 and props ramp down no closed-loop control.
+    double expTimeTotal = 0; //The totall time from expTime = 0 (absolute zero) to the end of trajectories (landing).
+    int trajType = 2; //set to 1 for set points and to 2 for smooth polynomials.
+    int phase = 0;
+
+    // setPointCoordinates is a vector of vectos in shape {x,y,z,t}
+    // The sequence of coordinates for the leader copter to get to at a certain time, [x,y,z, Time] all in the world frame!
+    //NOTE: the initial coordinate of the leader is 0 0 0.
+//
+    /* Determine this */
+//    std::vector <std::vector <double>> setPointCoordinates {{0.0,0.0,0.0,0.0} ,{0.0,0.0,1.5,5.0}, {-1.5,-1.5,1.5,4.0}, {0.0,0.0,1.5,4.0}, {-1.5,-1.5,1.5,4.0}, {0.0,0.0,1.5,4.0}, {0.0,0.0,0.0,5.0}};
+
+    std::vector <std::vector <double>> setPointCoordinates {{0.0,0.0,0.0,0.0} ,{0.0,0.0,1.5,5.0}, {0.0,0.0,1.5,5.0}, {0.0,0.0,0.0,5.0}};
+
+    /*{-1.5,-1.5,1.5,4.0}, {0.0,0.0,1.5,4.0}, {-1.5,-1.5,1.5,4.0}, {0.0,0.0,1.5,4.0},*/
+//    setPointCoordinates.push_back(std::vector<double>{-1.5,-1.5,1.5,4.0});
+//    setPointCoordinates.push_back({0.0,0.0,1.5,4.0});
+//    setPointCoordinates.push_back({-1.5,-1.5,1.5,4.0});
+//    setPointCoordinates.push_back({0.0,0.0,1.5,4.0});
+//    setPointCoordinates.push_back({0.0,0.0,0.0,5.0});
+
+    std::vector <double> xOffsets {0.0}; // X coordinates of all copters w.r.t the leader e.g. {0, 1.2, 0.5}
+    std::vector <double> yOffsets {0.0}; // Y coordinates of all copters w.r.t the leader e.g. {0, 0, -0.8}
+    /* End of Determine this */
+
+    std::vector <Eigen::Vector3d> setPointOnlyXYZ;
+
+    std::vector <Eigen::VectorXd> errors; //This is a vector of eigen-vectors containing the position/velocity errors of each copter.
+
+    /* Look at the constructor for initial values */
+    std::vector<Eigen::Vector3d> desiredPose;  // Desired position of the leader copter
+    std::vector<Eigen::Vector3d> desiredVel;   // [0, 0, 0]  Desired position of the leader copter
+    std::vector<Eigen::Vector3d> desiredAccel; // [0, 0, 0]This list contains the desired acceleration of the copters. Since copter trajectories are the same except for just an offset, this is one list but not a list of lists.
+
+    std::vector<std::vector<Eigen::Vector3d>> desiredPose_vec;
+    std::vector<std::vector<Eigen::Vector3d>> desiredVel_vec;
+    std::vector<std::vector<Eigen::Vector3d>> desiredAccel_vec;
+    int num_copters;
+    /* Look at the constructor for initial values */
+    bool ARM_FLAG = true;
+    bool FAILSAFE_FLAG = false;
+    double maxPositionErrorTolerance = 0.5*3; //in meter
+
+    int index = 1; //Indicates the current number of piece-wise trajectories past sofar
+    double expTimeElapsed = deadTime + rampUpDuration + trajStartDelay;  //Experiment time elapsed at the begining of trajectory generation
+
+    int traj_caller;
+
+
+    Trajectory_Planner_CSV(int num_copters_val, const char* fileName = "trajectories.csv"){
+        traj_caller = 0;
+        num_copters = num_copters_val;
+        desiredPose = std::vector<Eigen::Vector3d>(num_copters, Eigen::Vector3d::Zero());
+        desiredVel = std::vector<Eigen::Vector3d>(num_copters, Eigen::Vector3d::Zero());
+        desiredAccel = std::vector<Eigen::Vector3d>(num_copters, Eigen::Vector3d::Zero());
+        double timeFinal = deadTime + rampUpDuration + trajStartDelay;  // trajStartDelay is becuase of having the controller in the loop before the traj starts
+        std::vector<std::vector<double>> fields = ReadCSV(fileName);
+        depackFields(fields, num_copters);
+        std::cout << "desiredPose_vec.at(0).size() " << desiredPose_vec.at(0).size() << std::endl;
+        timeFinal += 0.01 * desiredPose_vec.at(0).size();
+        expTimeTotal = timeFinal; // The totall time from expTime = 0 (absolute zero) to the end of trajectories (landing).
+        std::cout << "Total experiment time is " << expTimeTotal << "seconds" << std::endl;
+        for (int i = 0; i < xOffsets.size(); i++) {
+            errors.push_back(Eigen::VectorXd::Zero(6));  //Position/velocity errors [e_x, e_y, e_z, e_xd, e_yd, e_zd]
+        }
+    }
+
+
+
+    std::vector<std::vector<double>> ReadCSV(const char* fileName) {
+        std::ifstream in("trajectories.csv");
+        std::vector<std::vector<double>> fields;
+
+        if (in) {
+            std::string line;
+
+            while (std::getline(in, line)) {
+                std::stringstream sep(line);
+                std::string field;
+
+                fields.push_back(std::vector<double>());
+
+                while (std::getline(sep, field, ',')) {
+                    fields.back().push_back(std::stod(field));
+                }
+            }
+        }
+
+
+        std::cout << "Number of rows is " << fields.size() << std::endl;
+        std::cout << "Number of columns is " << fields.at(0).size() << std::endl;
+        return fields;
+    }
+
+
+    void depackFields(std::vector<std::vector<double>> fields, int num_vopters) {
+        int rows = fields.size();
+        for (int i = 0; i < num_vopters; ++i){
+            std::vector<Eigen::Vector3d> temp_p_vec;
+            std::vector<Eigen::Vector3d> temp_v_vec;
+            std::vector<Eigen::Vector3d> temp_a_vec;
+            Eigen::Vector3d temp_p;
+            Eigen::Vector3d temp_v;
+            Eigen::Vector3d temp_a;
+            for (int k = 0; k < rows; ++k) {
+                for (int d = 0; d < 3; ++d) {
+                    temp_p(d) = fields.at(k).at(3*i+d);
+                    temp_v(d) = fields.at(k).at(num_vopters*3 + 3*i + d);
+                    temp_a(d) = fields.at(k).at(num_vopters*6 + 3*i + d);
+                }
+                temp_p_vec.push_back(temp_p);
+                temp_v_vec.push_back(temp_v);
+                temp_a_vec.push_back(temp_a);
+            }
+            desiredPose_vec.push_back(temp_p_vec);
+            desiredVel_vec.push_back(temp_v_vec);
+            desiredAccel_vec.push_back(temp_a_vec);
+        }
+    }
+    void generate(double expTime, std::vector <Eigen::Vector3d> position, std::vector <Eigen::Vector3d> velocity) {
+        /* Generates desired trajectory, sets the phase, and returns desired positions, velocities and acceleration */
+        // Determining the operation phase
+        if (expTime <= deadTime) {
+        }
+        else if (expTime <= deadTime + rampUpDuration) {
+            //ramp up
+            phase = 1;
+        }
+        else if (expTime <=  expTimeTotal + trajStartDelay){ //
+            // Feedback control is in the loop. # 2 seconds before/after the trajectories start/end.
+            phase = 2;
+        }
+        else if (expTime <=  expTimeTotal + trajStartDelay + rampDownDuration){
+            // Ramp down
+            phase = 3;
+        }
+        else{
+            phase = 0;
+            ARM_FLAG = false;
+        }
+        /* Planning the trajectories */
+        std::vector<Eigen::Vector3d> DX = std::vector<Eigen::Vector3d>(num_copters, Eigen::Vector3d::Zero());
+        std::vector<Eigen::Vector3d> DXd = std::vector<Eigen::Vector3d>(num_copters, Eigen::Vector3d::Zero());
+        std::vector<Eigen::Vector3d> DXdd = std::vector<Eigen::Vector3d>(num_copters, Eigen::Vector3d::Zero());
+
+
+        /* Polynomials */
+        if (expTime < deadTime + rampUpDuration + trajStartDelay) {
+            for(int i = 0; i < num_copters; ++i) {
+                DX.at(i) = desiredPose_vec.at(i).at(0);
+                DXd.at(i) = Eigen::Vector3d::Zero();
+                DXdd.at(i) = Eigen::Vector3d::Zero();
+            }
+        }
+        else if (expTime < expTimeTotal) {
+            for(int i = 0; i < num_copters; ++i) {
+                DX.at(i) = desiredPose_vec.at(i).at(traj_caller);
+                DXd.at(i) = desiredVel_vec.at(i).at(traj_caller);
+                DXdd.at(i) = desiredAccel_vec.at(i).at(traj_caller);
+                traj_caller++;
+            }
+        }
+        else {
+            //Stay at the very last commanded coordinates
+            for(int i = 0; i < num_copters; ++i) {
+                DX.at(i) = desiredPose_vec.at(i).back();
+                DXd.at(i) = Eigen::Vector3d::Zero();
+                DXdd.at(i) = Eigen::Vector3d::Zero();
+            }
+        }
+
+        // Position/velocity errors [e_x, e_y, e_z, e_xd, e_yd, e_zd]
+        for (int i = 0; i < num_copters; i++) {
+            errors.at(i) <<  DX.at(i)(0) - position.at(i)(0), DX.at(i)(1) - position.at(i)(1), DX.at(i)(2) - position.at(i)(2), DXd.at(i) - velocity.at(i); //Leader first
+
+            // Failsafe Check
+            for (int j = 0; j < 3; j++) {
+                if (fabs(errors.at(i)(j)) > maxPositionErrorTolerance){
+                    FAILSAFE_FLAG = true;
+                }
+            }
+        }
+        // Desired position, velocity, and acceleration of the head copter
+        desiredPose = DX;
+        desiredVel = DXd;
+        desiredAccel = DXdd;
+    }
+
+
+
+};
 
 
 
