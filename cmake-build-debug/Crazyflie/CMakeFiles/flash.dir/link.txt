@@ -1,1 +1,0 @@
-/usr/bin/c++  -g  -rdynamic CMakeFiles/flash.dir/src/flash.cpp.o  -o flash  crazyflie_cpp/libcrazyflie_cpp.a -lboost_program_options -lusb-1.0 

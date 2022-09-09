@@ -1,7 +1,0 @@
-/snap/clion/135/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/griv/CLionProjects/crazyflie_NatNet
-Using standard cmake
-Using standard cmake
-/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter
--- Configuring done
--- Generating done
--- Build files have been written to: /home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug

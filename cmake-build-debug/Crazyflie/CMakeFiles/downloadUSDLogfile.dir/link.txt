@@ -1,1 +1,0 @@
-/usr/bin/c++  -g  -rdynamic CMakeFiles/downloadUSDLogfile.dir/src/downloadUSDLogfile.cpp.o  -o downloadUSDLogfile  crazyflie_cpp/libcrazyflie_cpp.a -lboost_program_options -lusb-1.0 

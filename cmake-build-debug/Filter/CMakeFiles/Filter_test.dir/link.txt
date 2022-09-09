@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/Filter_test.dir/test/Filter_test.cpp.o  -o Filter_test  -Wl,-rpath,/home/griv/CLionProjects/crazyflie_NatNet/cmake-build-debug/Filter libFIR_Filter.so 

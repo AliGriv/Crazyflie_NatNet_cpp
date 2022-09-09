@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -g  -shared -Wl,-soname,libTrajectory_Planner.so -o libTrajectory_Planner.so  
