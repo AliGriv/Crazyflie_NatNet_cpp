@@ -52,7 +52,7 @@ public:
             yawCounter.push_back(0); //Yaw conters initialized at 0s.
             yawFiltered.push_back(0.0); //Yaw will be initialized with the actual measurements later.
             trackLostCounter.push_back(0);
-            firFilter.push_back(Velocity_Filter(3, 0.05, 3));
+            firFilter.push_back(Velocity_Filter(5, 0.05, 3));
         }
     }
 

@@ -68,11 +68,13 @@ void mainThread_run(Sensor &sensor,
     std::vector <Eigen::Vector3d> position_cache;
     std::vector <Eigen::Vector4d> orientation_cache;
     std::vector <bool> trackingFlags_cache;
+    std::vector <Eigen::Vector3d> synthetic_position;
+    std::vector <Eigen::Vector3d> synthetic_velocity;
+    int synthetic_counter {0};
     std::chrono::high_resolution_clock::time_point expInitTime;
     std::chrono::high_resolution_clock::time_point time_temp;
-    for (int i = 0; i < numRigidBodies; i++) {
-        cfs.at(i).sendSetpoint(0.0,0.0,0.0,0);
-    }
+    std::chrono::high_resolution_clock::time_point synthetic_time;
+    double last_synthetic_time;
     while (true) {
         if (!EmergencyStopExperiment) { //proceed with natural main code
             if (trajPlanner.ARM_FLAG && !trajPlanner.FAILSAFE_FLAG && !sensor.FAILSAFE_FLAG) {
@@ -82,6 +84,8 @@ void mainThread_run(Sensor &sensor,
                 position_cache = positions;
                 orientation_cache = orientations;
                 trackingFlags_cache = trackingFlags;
+                ready_event = false;
+                lk.unlock();
                 if (!sensor.initFlag) {
                     sensor.process(position_cache, orientation_cache, trackingFlags_cache);
                     //precious_positions = position;
@@ -93,7 +97,39 @@ void mainThread_run(Sensor &sensor,
                     expTime = time_span.count();
                     sensor.process(position_cache, orientation_cache, trackingFlags_cache);
                     //positions_previous = positions
-                    trajPlanner.generate(expTime, sensor.Position, sensor.Velocity);
+
+                    // If befeore hovering and after landing start
+                    if (expTime <= trajPlanner.deadTime + trajPlanner.rampUpDuration + trajPlanner.trajStartDelay + trajPlanner.setPointCoordinates.at(1).at(3)
+                        || expTime >= (trajPlanner.expTimeTotal - trajPlanner.setPointCoordinates.back().at(3))) {
+                        trajPlanner.generate(expTime, sensor.Position, sensor.Velocity);
+                    }
+                    else {
+                        // In this situation we want to deliberately impose some delay in x,y direction
+                        if (synthetic_counter == 0) {
+                            synthetic_position = sensor.Position;
+                            synthetic_velocity = sensor.Velocity;
+
+                            synthetic_time = std::chrono::high_resolution_clock::now();
+                            last_synthetic_time = std::chrono::duration_cast<std::chrono::duration<double>>(synthetic_time - expInitTime).count();
+                        }
+                        else {
+                            auto time_now = std::chrono::high_resolution_clock::now();
+                            auto how_long = std::chrono::duration_cast<std::chrono::duration<double>>(time_now - expInitTime).count();
+                            if (how_long >= last_synthetic_time + 0.15) {
+                                last_synthetic_time = how_long;
+                                synthetic_position = sensor.Position;
+                                synthetic_velocity = sensor.Velocity;
+                            }
+                            else {
+                                for (int i = 0; i < numRigidBodies; i++) {
+                                    synthetic_position.at(i)(2) = sensor.Position.at(i)(2);
+                                    synthetic_velocity.at(i)(2) = sensor.Velocity.at(i)(2);
+                                }
+                            }
+                        }
+                        trajPlanner.generate(expTime, synthetic_position, synthetic_velocity);
+                        synthetic_counter++;
+                    }
 //                    std::cout << "at " << expTime << " sec ,trajPlanner.phase is " << trajPlanner.phase << std::endl;
                     controller.control_allocation(expTime, sensor.yawFiltered,
                                                   trajPlanner.errors, trajPlanner.phase,
@@ -128,8 +164,8 @@ void mainThread_run(Sensor &sensor,
                     std::cout << "Average loop rate (main thread) is " << loop_counter / (time_span.count()) << "Hz"
                               << std::endl;
                 }
-                ready_event = false;
-                lk.unlock();
+//                ready_event = false;
+//                lk.unlock();
             }
             else {
                 // Case1: Experiment is completed
@@ -187,7 +223,7 @@ void comThread_run(){
         for (int i = 0; i < numRigidBodies; i++) {
             cfs.at(i).sendSetpoint(commandsToGo.at(i).roll, -commandsToGo.at(i).pitch,
                                    commandsToGo.at(i).yawRate, commandsToGo.at(i).throttle);
-//            std::cout << i << "roll: " << commandsToGo.at(i).roll << ", pitch: " << commandsToGo.at(i).pitch << ", yawRate: " << commandsToGo.at(i).yawRate << ", throttle: " << commandsToGo.at(i).throttle << std::endl;
+//            std::cout << "roll: " << commandsToGo.at(i).roll << ", pitch: " << commandsToGo.at(i).pitch << ", yawRate: " << commandsToGo.at(i).yawRate << ", throttle: " << commandsToGo.at(i).throttle << std::endl;
             std::this_thread::sleep_for(std::chrono::milliseconds(1));
         }
         std::this_thread::sleep_for(std::chrono::milliseconds (1000/rate-numRigidBodies));
@@ -212,10 +248,8 @@ void comThread_run(){
 int main() {
 
     std::vector <std::string> uri_list;
-    uri_list.emplace_back("radio://0/80/2M/E7E7E7E7E0");
-    uri_list.emplace_back("radio://0/80/2M/E7E7E7E7E3");
-    uri_list.emplace_back("radio://1/80/2M/E7E7E7E7E6");
-//    uri_list.emplace_back("radio://0/80/2M/E7E7E7E7E6");
+//    uri_list.emplace_back("radio://0/80/2M/E7E7E7E7E3");
+    uri_list.emplace_back("radio://0/80/2M/E7E7E7E7E6");
 //    uri_list.emplace_back("radio://0/80/2M");
 
     int numCopters = uri_list.size();
@@ -334,7 +368,6 @@ void NATNET_CALLCONV receiveRigidBodyFrame(sFrameOfMocapData* data, void* pUserD
 //    printf("Rigid Bodies [Count=%d]\n", data->nRigidBodies);
     if (numRigidBodies != data->nRigidBodies) {
         std::cout << "numRigidBodies is " << numRigidBodies << std::endl;
-        std::cout << "data->nRigidBodies" << data->nRigidBodies << std::endl;
         std::cout << "Number of received rigid bodies does not match the expectarion" << std::endl;
         return;
     }

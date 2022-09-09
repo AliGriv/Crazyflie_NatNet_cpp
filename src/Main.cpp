@@ -80,6 +80,8 @@ void mainThread_run(Sensor &sensor,
                 position_cache = positions;
                 orientation_cache = orientations;
                 trackingFlags_cache = trackingFlags;
+                ready_event = false;
+                lk.unlock();
                 if (!sensor.initFlag) {
                     sensor.process(position_cache, orientation_cache, trackingFlags_cache);
                     //precious_positions = position;
@@ -126,8 +128,8 @@ void mainThread_run(Sensor &sensor,
                     std::cout << "Average loop rate (main thread) is " << loop_counter / (time_span.count()) << "Hz"
                               << std::endl;
                 }
-                ready_event = false;
-                lk.unlock();
+//                ready_event = false;
+//                lk.unlock();
             }
             else {
                 // Case1: Experiment is completed
@@ -210,9 +212,9 @@ void comThread_run(){
 int main() {
 
     std::vector <std::string> uri_list;
-    uri_list.emplace_back("radio://0/80/2M/E7E7E7E7E3");
+//    uri_list.emplace_back("radio://0/80/2M/E7E7E7E7E3");
 //    uri_list.emplace_back("radio://0/80/2M/E7E7E7E7E6");
-//    uri_list.emplace_back("radio://0/80/2M");
+    uri_list.emplace_back("radio://0/80/2M/E7E7E7E7E0");
 
     int numCopters = uri_list.size();
     std::cout << "numCopters" << numCopters << std::endl;

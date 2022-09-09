@@ -16,7 +16,7 @@
 #include <cmath>
 #include "signal.h"
 #include "PB_Control.h"
-
+#include <queue>
 bool stop = false;
 
 std::vector <double> find_highLC(const Eigen::VectorXd &errors, const Eigen::VectorXd &gain) {
@@ -75,7 +75,7 @@ int main() {
     std::chrono::high_resolution_clock::time_point start;
     std::chrono::high_resolution_clock::time_point time_temp;
     start = std::chrono::high_resolution_clock::now();
-    for(int i = 0; i < 10000; i++) {
+    for(int i = 0; i < 1; i++) {
         std::this_thread::sleep_for(std::chrono::milliseconds (1000/rate));
         loop_counter++;
         if (loop_counter % 100 == 0) {
@@ -95,6 +95,13 @@ int main() {
     time_temp = std::chrono::high_resolution_clock::now();
     auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(time_temp - start);
     std::cout << "time passed was " << time_span.count() << " secs" << std::endl;
+
+
+    double sd {5.0567};
+    int sd_ronud{sd*100};
+    std::cout << "sd " << sd << " sd_rounds " << sd_ronud << std::endl;
+    double sd_round_d{sd_ronud/100.0};
+    std::cout << "sd_round_d " << sd_round_d << std::endl;
 //    double remainder = fmod(0.05, M_PI);
 //    std::cout << "remainder is " << remainder << std::endl;
 //    std::cout << "atan(1) is " << atan(1.0) << std::endl;
@@ -208,5 +215,27 @@ int main() {
 
 //    rec.saveDataToFile();
 //    rec.printVariableNames();
+
+
+
+    std::queue<std::vector<int>> q;
+    std::vector<int> temp {1,2,3,4};
+    q.push(temp);
+    temp = {2,3,4,5};
+    q.push(temp);
+    std::cout << "initially q.size() is " << q.size() << std::endl;
+    int conuter = 0;
+    while(!q.empty()){
+        std::cout << "i is " << conuter << " q.size() is " << q.size() << std::endl;
+        temp = q.front();
+        std::cout << "element i=" << conuter << " of the queue is ";
+        for (auto e:temp) {
+            std::cout << e << " ";
+        }
+        std::cout << std::endl;
+        q.pop();
+        conuter++;
+    }
+    std::cout << "finally q.size() is " << q.size() << std::endl;
     return 0;
 }

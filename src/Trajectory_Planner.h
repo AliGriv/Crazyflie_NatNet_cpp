@@ -46,9 +46,9 @@ public:
 //
     /* Determine this */
 //    std::vector <std::vector <double>> setPointCoordinates {{0.0,0.0,0.0,0.0} ,{0.0,0.0,1.5,5.0}, {-1.5,-1.5,1.5,4.0}, {0.0,0.0,1.5,4.0}, {-1.5,-1.5,1.5,4.0}, {0.0,0.0,1.5,4.0}, {0.0,0.0,0.0,5.0}};
-
-    std::vector <std::vector <double>> setPointCoordinates {{0.0,0.0,0.0,0.0} ,{0.0,0.0,1.5,5.0}, {0.0,0.0,1.5,5.0}, {0.0,0.0,0.0,5.0}};
-
+    std::vector <std::vector <double>> setPointCoordinates {{0.0,0.0,0.0,0.0} ,{0.0,0.0,1.5,4.0}, {0.0,-1.5,1.5,4.0}, {0.0,0.0,1.5,4.0}, {0.0,-1.5,1.5,4.0}, {0.0,0.0,1.5,4.0}, {0.0,0.0,0.0,4.0}};
+//    std::vector <std::vector <double>> setPointCoordinates {{0.0,0.0,0.0,0.0} ,{0.0,0.0,1.5,5.0}, {0.0,0.0,1.5,5.0}, {0.0,0.0,0.0,5.0}};
+//    std::vector <std::vector <double>> setPointCoordinates {{0.0,0.0,0.0,0.0}};
     /*{-1.5,-1.5,1.5,4.0}, {0.0,0.0,1.5,4.0}, {-1.5,-1.5,1.5,4.0}, {0.0,0.0,1.5,4.0},*/
 //    setPointCoordinates.push_back(std::vector<double>{-1.5,-1.5,1.5,4.0});
 //    setPointCoordinates.push_back({0.0,0.0,1.5,4.0});
@@ -310,6 +310,11 @@ public:
     int traj_caller;
 
 
+    std::vector<Eigen::Vector3d> DX;
+    std::vector<Eigen::Vector3d> DXd;
+    std::vector<Eigen::Vector3d> DXdd;
+
+
     Trajectory_Planner_CSV(int num_copters_val, const char* fileName = "trajectories.csv"){
         traj_caller = 0;
         num_copters = num_copters_val;
@@ -323,9 +328,12 @@ public:
         timeFinal += 0.01 * desiredPose_vec.at(0).size();
         expTimeTotal = timeFinal; // The totall time from expTime = 0 (absolute zero) to the end of trajectories (landing).
         std::cout << "Total experiment time is " << expTimeTotal << "seconds" << std::endl;
-        for (int i = 0; i < xOffsets.size(); i++) {
+        for (int i = 0; i < num_copters_val; i++) {
             errors.push_back(Eigen::VectorXd::Zero(6));  //Position/velocity errors [e_x, e_y, e_z, e_xd, e_yd, e_zd]
         }
+        DX = std::vector<Eigen::Vector3d>(num_copters, Eigen::Vector3d::Zero());
+        DXd = std::vector<Eigen::Vector3d>(num_copters, Eigen::Vector3d::Zero());
+        DXdd = std::vector<Eigen::Vector3d>(num_copters, Eigen::Vector3d::Zero());
     }
 
 
@@ -383,6 +391,8 @@ public:
     void generate(double expTime, std::vector <Eigen::Vector3d> position, std::vector <Eigen::Vector3d> velocity) {
         /* Generates desired trajectory, sets the phase, and returns desired positions, velocities and acceleration */
         // Determining the operation phase
+//        std::cout << "inside traj_csv_gen" << std::endl;
+//        std::cout << "desiredPose_vec.size()" << desiredPose_vec.size() << std::endl;
         if (expTime <= deadTime) {
         }
         else if (expTime <= deadTime + rampUpDuration) {
@@ -402,25 +412,27 @@ public:
             ARM_FLAG = false;
         }
         /* Planning the trajectories */
-        std::vector<Eigen::Vector3d> DX = std::vector<Eigen::Vector3d>(num_copters, Eigen::Vector3d::Zero());
-        std::vector<Eigen::Vector3d> DXd = std::vector<Eigen::Vector3d>(num_copters, Eigen::Vector3d::Zero());
-        std::vector<Eigen::Vector3d> DXdd = std::vector<Eigen::Vector3d>(num_copters, Eigen::Vector3d::Zero());
+//        std::vector<Eigen::Vector3d> DX = std::vector<Eigen::Vector3d>(num_copters, Eigen::Vector3d::Zero());
+//        std::vector<Eigen::Vector3d> DXd = std::vector<Eigen::Vector3d>(num_copters, Eigen::Vector3d::Zero());
+//        std::vector<Eigen::Vector3d> DXdd = std::vector<Eigen::Vector3d>(num_copters, Eigen::Vector3d::Zero());
 
 
         /* Polynomials */
         if (expTime < deadTime + rampUpDuration + trajStartDelay) {
             for(int i = 0; i < num_copters; ++i) {
+//                std::cout << "Pos" << std::endl;
                 DX.at(i) = desiredPose_vec.at(i).at(0);
                 DXd.at(i) = Eigen::Vector3d::Zero();
                 DXdd.at(i) = Eigen::Vector3d::Zero();
             }
         }
         else if (expTime < expTimeTotal) {
+            traj_caller = int((expTime - deadTime - trajStartDelay - rampUpDuration)/0.01);
             for(int i = 0; i < num_copters; ++i) {
                 DX.at(i) = desiredPose_vec.at(i).at(traj_caller);
                 DXd.at(i) = desiredVel_vec.at(i).at(traj_caller);
                 DXdd.at(i) = desiredAccel_vec.at(i).at(traj_caller);
-                traj_caller++;
+//                traj_caller++;
             }
         }
         else {
@@ -434,7 +446,9 @@ public:
 
         // Position/velocity errors [e_x, e_y, e_z, e_xd, e_yd, e_zd]
         for (int i = 0; i < num_copters; i++) {
-            errors.at(i) <<  DX.at(i)(0) - position.at(i)(0), DX.at(i)(1) - position.at(i)(1), DX.at(i)(2) - position.at(i)(2), DXd.at(i) - velocity.at(i); //Leader first
+//            std::cout << "DX.at(i) " << DX.at(i) << std::endl;
+//            std::cout << "DXd.at(i) " << DXd.at(i) << std::endl;
+            errors.at(i) <<  DX.at(i)(0) - position.at(i)(0), DX.at(i)(1) - position.at(i)(1), DX.at(i)(2) - position.at(i)(2), DXd.at(i)(0) - velocity.at(i)(0), DXd.at(i)(1) - velocity.at(i)(1), DXd.at(i)(2) - velocity.at(i)(2); //Leader first
 
             // Failsafe Check
             for (int j = 0; j < 3; j++) {

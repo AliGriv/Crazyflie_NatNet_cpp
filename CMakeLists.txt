@@ -49,9 +49,33 @@ target_include_directories(Main PUBLIC Crazyflie/crazyflie_cpp/include)
 target_link_directories(Main PUBLIC NatNet)
 target_link_libraries(Main PUBLIC NatNetUtility NatNetLibs -lNatNetLibShared)
 
+
+add_executable(Main_delayed_uxy src/Main_delayed_uxy.cpp)
+target_link_libraries(Main_delayed_uxy PUBLIC crazyflie_cpp Eigen3::Eigen Sensor Velocity_Filter PB_Control Recorder Trajectory_Planner)
+target_include_directories(Main_delayed_uxy PUBLIC Crazyflie/crazyflie_cpp/include)
+target_link_directories(Main_delayed_uxy PUBLIC NatNet)
+target_link_libraries(Main_delayed_uxy PUBLIC NatNetUtility NatNetLibs -lNatNetLibShared)
+
+add_executable(Main_multi src/Main_multi.cpp)
+target_link_libraries(Main_multi PUBLIC crazyflie_cpp Eigen3::Eigen Sensor Velocity_Filter PB_Control Recorder Trajectory_Planner)
+target_include_directories(Main_multi PUBLIC Crazyflie/crazyflie_cpp/include)
+target_link_directories(Main_multi PUBLIC NatNet)
+target_link_libraries(Main_multi PUBLIC NatNetUtility NatNetLibs -lNatNetLibShared)
+
+add_executable(Main_multi_csv src/Main_multi_csv.cpp)
+target_link_libraries(Main_multi_csv PUBLIC crazyflie_cpp Eigen3::Eigen Sensor Velocity_Filter PB_Control Recorder Trajectory_Planner)
+target_include_directories(Main_multi_csv PUBLIC Crazyflie/crazyflie_cpp/include)
+target_link_directories(Main_multi_csv PUBLIC NatNet)
+target_link_libraries(Main_multi_csv PUBLIC NatNetUtility NatNetLibs -lNatNetLibShared)
+
+
 add_executable(Velocity_filter_test src/velocity_filter_test.cpp)
 target_link_libraries(Velocity_filter_test PUBLIC Eigen3::Eigen GNU_Plot Velocity_Filter Sensor)
 target_include_directories(Velocity_filter_test PUBLIC GNUPlot )
 
 add_executable(condition_var_test src/condition_var_test.cpp)
 target_link_libraries(condition_var_test PUBLIC Eigen3::Eigen)
+
+add_executable(test_csv_read src/test_read_csv.cpp)
+configure_file(src/trajectories.csv ${CMAKE_CURRENT_BINARY_DIR}/trajectories.csv COPYONLY)
+target_link_libraries(test_csv_read PUBLIC Trajectory_Planner Eigen3::Eigen)

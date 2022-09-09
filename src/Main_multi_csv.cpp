@@ -89,11 +89,15 @@ void mainThread_run(Sensor &sensor,
                     time_temp = std::chrono::high_resolution_clock::now();
                     auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(time_temp - expInitTime);
                     expTime = time_span.count();
+//                    std::cout << "brfore sens" << std::endl;
                     sensor.process(position_cache, orientation_cache, trackingFlags_cache);
                     //positions_previous = positions
+//                    std::cout << "brfore traj" << std::endl;
+//                    std::cout << "sensor.Position.size() " << sensor.Position.size() << std::endl;
+//                    std::cout << "sensor.Velocity.size() " << sensor.Velocity.size() << std::endl;
                     trajPlanner.generate(expTime, sensor.Position, sensor.Velocity);
 //                    std::cout << "at " << expTime << " sec ,trajPlanner.phase is " << trajPlanner.phase << std::endl;
-                    controller.control_allocation(expTime, sensor.yawFiltered,
+                    controller.control_allocation_n(expTime, sensor.yawFiltered,
                                                   trajPlanner.errors, trajPlanner.phase,
                                                   trajPlanner.rampUpDuration,
                                                   trajPlanner.rampDownDuration, trajPlanner.desiredAccel);
@@ -102,8 +106,7 @@ void mainThread_run(Sensor &sensor,
                     commandsToGo = controller.mappedCommands;
                     m_in_main.unlock();
                     for (int i = 0; i < numRigidBodies; i++) {
-                        Eigen::Vector3d Offset(trajPlanner.xOffsets.at(i), trajPlanner.yOffsets.at(i), 0.0);
-                        rec.appendDesiredPosition(trajPlanner.desiredPose + Offset, i);
+                        rec.appendDesiredPosition(trajPlanner.desiredPose.at(i), i);
 //                        std::cout << trajPlanner.desiredPose(2) << std::endl;
                         rec.appendOrientation(orientation_cache.at(i), i);
                         rec.appendHighLevelCommand(controller.fXYZ.at(i), i);
@@ -185,7 +188,7 @@ void comThread_run(){
         for (int i = 0; i < numRigidBodies; i++) {
             cfs.at(i).sendSetpoint(commandsToGo.at(i).roll, -commandsToGo.at(i).pitch,
                                    commandsToGo.at(i).yawRate, commandsToGo.at(i).throttle);
-//            std::cout << "roll: " << commandsToGo.at(i).roll << ", pitch: " << commandsToGo.at(i).pitch << ", yawRate: " << commandsToGo.at(i).yawRate << ", throttle: " << commandsToGo.at(i).throttle << std::endl;
+            std::cout << i << "roll: " << commandsToGo.at(i).roll << ", pitch: " << commandsToGo.at(i).pitch << ", yawRate: " << commandsToGo.at(i).yawRate << ", throttle: " << commandsToGo.at(i).throttle << std::endl;
             std::this_thread::sleep_for(std::chrono::milliseconds(1));
         }
         std::this_thread::sleep_for(std::chrono::milliseconds (1000/rate-numRigidBodies));
@@ -210,9 +213,9 @@ void comThread_run(){
 int main() {
 
     std::vector <std::string> uri_list;
-    uri_list.emplace_back("radio://0/80/2M/E7E7E7E7E0");
     uri_list.emplace_back("radio://0/80/2M/E7E7E7E7E3");
     uri_list.emplace_back("radio://0/80/2M/E7E7E7E7E6");
+    uri_list.emplace_back("radio://1/80/2M/E7E7E7E7E0");
 //    uri_list.emplace_back("radio://0/80/2M/E7E7E7E7E6");
 //    uri_list.emplace_back("radio://0/80/2M");
 

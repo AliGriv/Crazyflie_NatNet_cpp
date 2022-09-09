@@ -121,6 +121,8 @@ public:
         kPos_i << 0.5,0.5,3.1,0.2,0.2,0.5;
         kPos_i = 1.6 * kPos_i;
         kPos.push_back(kPos_i);
+//        kPos.push_back(kPos_i);
+//        kPos.push_back(kPos_i);
     }
 
 
@@ -264,6 +266,54 @@ public:
             // Controller is in the loop now!
             for (int i = 0; i < num_copters; i++) {
                 Eigen::Vector3d highLC = find_highLC(errors.at(i), kPos.at(i), desiredAcc);
+                double sat_ux = saturate(highLC[0], Throttle_bias);
+                double sat_uy = saturate(highLC[1], Throttle_bias);
+                double sat_uz = saturate(highLC[2], 2 * Throttle_bias) + Throttle_bias; //TO DO for adaptive gravity compensation
+                Eigen::Vector3d sat_highLC;
+                sat_highLC << sat_ux, sat_uy, sat_uz;
+                fXYZ.at(i) = sat_highLC;
+                //Find Low-level commands
+                std::vector <double> lowLC = find_lowLC(sat_highLC, yaw_val.at(i));
+                throttle.at(i) = saturate(lowLC.at(0), maxThrottle);
+                roll.at(i) = saturate(lowLC.at(1), maxRoll); // This is in radians.
+                pitch.at(i) = saturate(lowLC.at(2), maxPitch); // This is in radians.
+                yawRate.at(i) = saturate(yawKp * (0 - yaw_val.at(i)), maxYawRate); //Radian per second
+            }
+        }
+        else if (phase == 3) {
+            ramp_down(0.0, Throttle_bias, rampDownDuration, timer);
+        }
+        map_commands();
+    }
+
+    void control_allocation_n(const double &timer, const std::vector <double> &yaw_val,
+                            const std::vector <Eigen::VectorXd> &errors,
+                            int phase_val, const double &rampUpDuration, const double &rampDownDuration, const std::vector <Eigen::Vector3d> &desiredAcc) {
+        if (!initYawFlag) {
+            desiredYaw = yaw_val;
+            initYawFlag = true;
+        }
+        //Resetting the initTime if the phase has changed
+        if (phase != phase_val) {
+            initTime = timer;
+        }
+        // update controller phase
+        phase = phase_val;
+        //Remaining on the floor
+        if (phase == 0) {
+            for (int i = 0; i < num_copters; i++) {
+                throttle.at(i) = 0.0;
+                roll.at(i) = 0.0;
+                pitch.at(i) = 0.0;
+            }
+        }
+        else if (phase == 1) {
+            ramp_up(0.0, Throttle_bias, rampUpDuration, timer);
+        }
+        else if (phase == 2) {
+            // Controller is in the loop now!
+            for (int i = 0; i < num_copters; i++) {
+                Eigen::Vector3d highLC = find_highLC(errors.at(i), kPos.at(i), desiredAcc.at(i));
                 double sat_ux = saturate(highLC[0], Throttle_bias);
                 double sat_uy = saturate(highLC[1], Throttle_bias);
                 double sat_uz = saturate(highLC[2], 2 * Throttle_bias) + Throttle_bias; //TO DO for adaptive gravity compensation
