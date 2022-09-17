@@ -37,6 +37,7 @@ target_link_libraries(Recorder PUBLIC Eigen3::Eigen CSVWriter GNU_Plot PB_Contro
 
 #install(FILES src/generatingPlotsFromCSV_old.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 configure_file(src/generatingPlotsFromCSV.py ${CMAKE_CURRENT_BINARY_DIR}/generatingPlotsFromCSV.py COPYONLY)
+configure_file(src/requirements.txt ${CMAKE_CURRENT_BINARY_DIR}/requirements.txt COPYONLY)
 add_executable(scrap src/scrap.cpp)
 target_link_libraries(scrap PRIVATE crazyflie_cpp)
 target_include_directories(scrap PRIVATE Crazyflie/crazyflie_cpp/include)
