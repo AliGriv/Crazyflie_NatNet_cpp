@@ -120,9 +120,7 @@ public:
         Eigen::VectorXd kPos_i (6);
         kPos_i << 0.5,0.5,3.1,0.2,0.2,0.5;
         kPos_i = 1.6 * kPos_i;
-        kPos.push_back(kPos_i);
-//        kPos.push_back(kPos_i);
-//        kPos.push_back(kPos_i);
+        for (int i=0; i < num_copters; i++) { kPos.push_back(kPos_i); }
     }
 
 
